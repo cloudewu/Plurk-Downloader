@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*
 # import packages
 from mdutils.mdutils import MdUtils # help to create a markdown file
 from bs4 import BeautifulSoup as bs # for html parsing
@@ -174,27 +175,24 @@ def get_raw_plurk(link):
 #   API server   #
 #                #
 ##################
-# 初始化
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    print('\n恭喜連結server成功~\n')
     return 'connection success!!'
 
-
-# 上傳json {"link":"https://~~~~"} 得到乾淨的data
+# upload json {"link":"https://~~~~"} to get clear data
 @app.route('/backup',methods=['GET','POST'])
 def upload_file():
     if request.method == 'GET':
-        return "請輸入網址!!"
+        return "please choose post method"
 
     if request.method == 'POST':
         try:
             url = request.json.get('link')
-            print('收到的網址：', url)
+            print('Receive link\n', url)
             raw_data = get_raw_plurk(url)
-            print('\n\n',raw_data)
+            print(raw_data)
         except Exception as e:
             print("ERROR", {'error': str(e), 'trace': traceback.format_exc()})
             return jsonify({'error': str(e), 'trace': traceback.format_exc()})
@@ -210,7 +208,6 @@ def after_request(response):
     return response
 
 if __name__ == '__main__':
-    # app.run(host='140.115.87.204', port=4444, debug=True)
-    app.run(host='0.0.0.0', port=4444, debug=True)
+    app.run(host='0.0.0.0', port=1234, debug=True)
     
 

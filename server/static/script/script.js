@@ -7,20 +7,8 @@ function ErrorHandler(e) {
 function GenerateDownloadLink(data) {
 	console.log("Request succeed. Start to download.");
 	
-	// show loading icon
-	$("#status").html("<div class=\"spinner-border text-success\"><span class=\"sr-only\">Loading...</span></div>");
-	
-	// get data 
-	// $.ajax({
-		// url: rqUrl,
-		// type: rqType,
-		// dataType: 'json',
-		// contentType: 'application/json',
-		// data: JSON.stringify({"link":rqData}),
-		// success: GenerateDownloadLink,
-		// error: ErrorHandler
-	// });
-	content = "data:text/plain;charset=UTF-8," + data;
+	// content = "data:text/plain;charset=UTF-8," + encodeURIComponent(data[result]);
+	content = "data:text/plain;charset=UTF-8," + encodeURIComponent("Success!");
 	
 	// show download button
 	$("#status").html("<a type=\"button\" download=\"content.txt\" class=\"btn btn-secondary\" id=\"download-btn\">Download</a>");
@@ -29,16 +17,34 @@ function GenerateDownloadLink(data) {
 
 function RequestData(rqType, rqUrl, rqData) {
 	console.log("Requesting data...");
-	GenerateDownloadLink(rqData);
+	// show loading icon
+	$("#status").html("<div class=\"spinner-border text-success\"><span class=\"sr-only\">Loading...</span></div>");
+	
+	// get data 
+	// $.getJSON(
+		// rqUrl,
+		// {link: rqData},
+		// GenerateDownloadLink
+	// );
+	$.ajax({
+		url: rqUrl,
+		type: rqType,
+		dataType: 'json',
+		contentType: 'application/json',
+		data: JSON.stringify({"link":rqData}),
+		success: GenerateDownloadLink,
+		error: ErrorHandler
+	});
+	
+	// GenerateDownloadLink(rqData);
 	// ErrorHandler("test");
 }
 
 function SubmitClick(event) {
 	url = $("#plurk-url").val();
-	console.log(url);
 	// TODO:
 	//   do input examining to prevent attack
-	RequestData("Post", "http://140.114.195.85:8765/backup", url)
+	RequestData("POST", "http://140.114.195.85:8765/backup", url)
 }
 
 function onload() {

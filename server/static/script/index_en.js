@@ -11,15 +11,15 @@ var ALERT_TIME = 2000;	// 2s
 /**
  * comment
  */
-function ErrorHandler(e) {
+function ErrorHandler(e, message) {
 	console.log("Error: " + e);
 	
 	BTN_CLICKED = false;
 	btn_submit.removeClass("disabled");
 	$("#status").html("<p><span class=\"badge badge-danger\">Error</span><span id=\"status-content\">Download fail.</span></p>");
-	alertBlock.html("<div class=\"alert alert-danger\">Something wrong. Please try again.</div>")
+	alertBlock.html("<div class=\"alert alert-danger\">Something wrong. Please try again later.</div>")
 	alertBlock.fadeIn("slow");
-	setTimeout(()=>{alertBlock.fadeOut("slow")}, ALERT_TIME);
+	setTimeout(function(){alertBlock.fadeOut("slow")}, ALERT_TIME);
 }
 
 function GenerateDownloadLink(data) {
@@ -28,19 +28,23 @@ function GenerateDownloadLink(data) {
 	// content = "data:text/plain;charset=UTF-8," + encodeURIComponent(data[result]);
 	content = "data:text/plain;charset=UTF-8," + encodeURIComponent("Success!");
 	
+	var blob = new Blob(["Success!"], {type: "data:text/plain;charset=UTF-8"});
+	saveAs(blob, "content.txt");
+	
 	$("#status").html("<a type=\"button\" download=\"content.txt\" class=\"btn btn-secondary\" id=\"download-btn\">Download</a>");
 	$("#download-btn").attr("href", content);
+	
 	BTN_CLICKED = false;
 	btn_submit.removeClass("disabled");
 	alertBlock.html("<div class=\"alert alert-success\">Request success! You can download the file now.</div>")
 	alertBlock.fadeIn("slow");
-	setTimeout(()=>{alertBlock.fadeOut("slow")}, ALERT_TIME);
+	setTimeout(function(){alertBlock.fadeOut("slow")}, ALERT_TIME);
 }
 
 function RequestData(rqType, rqUrl, rqData) {
 	console.log("Requesting data...");
 	// show loading icon
-	$("#status").html("<div class=\"spinner-border text-success\"/><span class=\"text-dark\" id=\"status-content\">Loading...</span>");
+	$("#status").html("<div class=\"spinner-border text-success\"/><span class=\"text-dark\" id=\"status-content\">Processing...</span>");
 	
 	/* get data */
 	// $.ajax({
@@ -53,7 +57,7 @@ function RequestData(rqType, rqUrl, rqData) {
 		// error: ErrorHandler
 	// });
 	
-	// GenerateDownloadLink(rqData);
+	GenerateDownloadLink(rqData);
 	// ErrorHandler("test");
 }
 

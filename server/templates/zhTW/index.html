@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+	<!-- webpage description -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Plurk downloader">
+    <meta name="author" content="Cloude">
+
+	<title>噗文儲存器alpha</title>
+	
+	<!-- resource loading -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">	
+	<link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC&display=swap" rel="stylesheet">
+	
+	<link rel="stylesheet" href="../../static/style/index.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='script/script.js') }}">
+</head>
+<body>
+	<nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+		<span class="navbar-brand" href="#">噗文儲存器</span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div class="navbar-nav">
+				<a class="nav-item nav-link active" href="#">首頁</a>
+				<a class="nav-item nav-link" href="#">關於我們</a>
+			</div>
+		</div>
+	</nav>
+	
+	<div class="container content-body">
+		<div class="position-fixed d-none" id="alert">
+			<div class="alert alert-success">alert.</div>
+		</div>
+		
+		<div class="">
+			<h2 class="title">噗文儲存器</h2>
+			<hr/>
+			<div class="intro">
+				<p>常常看到經典好噗，卻無法離線閱讀嗎？</p>
+				<p>只要在下方貼上噗文網址，我們就可以幫你轉為純文字檔下載儲存喔！</p>
+				<p class="text-ps border rounded-pill"><span>．</span>　文字格式支援markdown語法，可以藉由hackmd、Visual Studio輔助工具，更易於閱讀。</p>
+			</div>
+			
+			<div class="form card">
+				<div class="card-header">輸入噗文網址：</div>
+				<div class="card-body input-group">
+					<input class="form-control" id="plurk-url" placeholder="https://www.plurk.com/p/xxxxxx"/>
+					<div class="input-group-append">
+						<button type="button" class="btn btn-primary" id="plurk-url-submit">送出！</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="status-column">
+			<div class="row justify-content-center" id="status"/>
+		</div>
+	</div>
+	
+	<!-- footer -->
+
+	<!-- script resource loading -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="{{ url_for('static', filename='script/FileSaver.min.js') }}"></script>
+	<script src="../../static/script/FileSaver.min.js"></script>
+	
+	<!-- custum script -->
+	<script src="../../static/script/index_tw.js"></script>
+	<script src="{{ url_for('static', filename='script/index_tw.js') }}"></script>
+</body>
+	<!-- Clude Wu August, 2019 -->
+</html>

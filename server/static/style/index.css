@@ -1,3 +1,45 @@
  * {
 	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
  }
+
+hr {
+	color: rgba(30, 30, 30, 50)
+	border-width: 0.2em;
+}
+
+
+ 
+.container {
+	margin: 2em;
+}
+
+.flex {
+	margin: 2em auto;
+	width: 70%;
+	min-width: 500px;
+}
+
+.intro {
+	padding: 2em;
+}
+
+#status-content {
+	padding-left: 1em;
+	font-size: 1.3em;
+}
+
+#alert {
+	opacity: 0.9;
+	filter: alpha(opacity=90);
+	top: 2em;
+	left: 15%;
+}
+
+@media only screen and (max-width: 600px) {
+	#alert {
+		width: 95%;
+		top: 2em;
+		left: 2.5%;
+	}
+}

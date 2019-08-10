@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*
 # import packages
+from mdutils.mdutils import MdUtils 
 from bs4 import BeautifulSoup as bs 
 import requests as rq
 import slimit
@@ -68,7 +69,7 @@ def get_content_by_link(plurk_url):
             print("Request Success! Status: {}.".format(plurk.status_code))
 
             # read content of HTML
-            soup = bs(plurk.text)
+            soup = bs(plurk.text,features="lxml")
             # extract the last script out
             script = soup.find_all("script")[-1].string
             
@@ -123,6 +124,7 @@ def get_content_by_link(plurk_url):
                             "poster_img": head[0].find("img").get("src"),
                             "poster_name": head[0].find("a", class_="name").text,
                             "post_content": string,
+                            "time": head[0].find("time", class_="timeago")['datetime'] ,
                             "response_count": response_content.get('response_count')        
                         },
                         "response":[]
@@ -185,7 +187,18 @@ def get_content_by_link(plurk_url):
             return fail_msg
             
 
-def create_content(data):
-    print(data)
-    return data
+def create_content(raw_data):
+    md_file = ""
+
+    md_file += "![U](" + raw_data['plurk']['poster_img'] + ")"
+    md_file += "**" + raw_data['plurk']['poster_name']+ "**  \n" + raw_data['plurk']['post_content'] + "  \n"
+    md_file += raw_data['plurk']['time'] + "\n___  \n"
+
+    md_file += str(raw_data['plurk']['response_count']) + "則回應"
+    for i in raw_data['response']:
+        md_file += "\n\n" + "![U]("+i['user_img']+ ")\n"        
+        md_file += i['user_name'] + "  \n"    
+        md_file += i['content_raw'] + "  \n" + i['posted'] 
+
+    return md_file
 

@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*
 # import packages
-from mdutils.mdutils import MdUtils 
 from flask import Flask, render_template, request, jsonify, Response
 import json
 import traceback
@@ -28,7 +27,7 @@ def upload_file():
             url = request.json.get('link')
             print('Receive link\n', url)
             raw_data = function.get_content_by_link(url)
-            print(raw_data)
+            # print(raw_data)
         except Exception as e:
             print("ERROR", {'error': str(e), 'trace': traceback.format_exc()})
             msg = {
@@ -47,8 +46,6 @@ def after_request(response):
     return response
 
 if __name__ == '__main__':
-    app.jinja_env.auto_reload = True
-    app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.run(host='0.0.0.0', port=8765, debug=True)
     
 

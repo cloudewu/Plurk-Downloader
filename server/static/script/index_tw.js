@@ -2,6 +2,8 @@
 var alertBlock = null;
 var statusBlock = null;
 var btn_submit = null;
+var server_url = "http://127.0.0.1:8765/backup";
+// var server_url = "http://140.114.195.85:8765/backup";
 
 /* properties */
 var BTN_CLICKED = false;
@@ -62,11 +64,11 @@ function RequestFail(e) {
 
 function ProcessReturnData(data) {
 	/* check return data */
-	// if(data[status]==false){
-		// ErrorHandler("ProcessFail", data[reason]);
-	// }else{
-		// GenerateDownloadLink(data);
-	// }
+	if(data[status]==false){
+		ErrorHandler("ProcessFail", data[reason]);
+	}else{
+		GenerateDownloadLink(data);
+	}
 	
 	GenerateDownloadLink(data);
 }
@@ -77,17 +79,17 @@ function RequestData(rqType, rqUrl, rqData) {
 	$("#status").html("<div class=\"spinner-border text-success\"/><span class=\"text-dark status-content\">處理中...</span>");
 	
 	/* get data */
-	// $.ajax({
-		// url: rqUrl,
-		// type: rqType,
-		// dataType: 'json',
-		// contentType: 'application/json',
-		// data: JSON.stringify({"link":rqData}),
-		// success: ProcessReturnData,
-		// error: RequestFail
-	// });
+	$.ajax({
+		url: rqUrl,
+		type: rqType,
+		dataType: 'json',
+		contentType: 'application/json',
+		data: JSON.stringify({"link":rqData}),
+		success: ProcessReturnData,
+		error: RequestFail
+	});
 	
-	GenerateDownloadLink(rqData);
+	// GenerateDownloadLink(rqData);
 	// RequestFail("test");
 }
 
@@ -99,8 +101,7 @@ function SubmitClick(event) {
 		url = $("#plurk-url").val();
 		// TODO:
 		//   do input examining to prevent attack
-		// RequestData("POST", "http://140.114.195.85:8765/backup", url)
-		RequestData("POST", "http://127.0.0.1:8765/backup", url)
+		RequestData("POST", server_url, url)
 	}
 }
 

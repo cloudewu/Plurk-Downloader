@@ -7,7 +7,12 @@
 ### give a plurk link and get raw data
 ### **required parameters:** json {"link":"plurk_url"} 
 ### **successfual return:** 
-    
+    json : {
+        "status": "success",
+        "time": "2019-08-10T07:12:39Z"
+        "content": <makedown content>,
+    }
+
 ### **error return:**
     1. plurk server receive request but refuse to provide the service (may be the private plurk)
     json :　{    

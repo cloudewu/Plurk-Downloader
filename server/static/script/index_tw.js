@@ -37,8 +37,8 @@ function ErrorHandler(type, message) {
 
 function GenerateDownloadLink(data) {
 	console.log("Request succeed. Start to download.");
-	// content = "data:text/plain;charset=UTF-8," + encodeURIComponent(data[result]);
-	content = "data:text/plain;charset=UTF-8," + encodeURIComponent("Success!");
+	
+	content = "data:text/plain;charset=UTF-8," + encodeURIComponent(data['content']);
 	
 	/* show alert */
 	alertBlock.html("<div class=\"alert alert-success\">擷取成功！現在可以點擊下載檔案了。</div>")
@@ -46,8 +46,9 @@ function GenerateDownloadLink(data) {
 	setTimeout(()=>{alertBlock.fadeOut("slow")}, ALERT_TIME);
 	
 	/* auto-download */
-	var blob = new Blob(["Success!"], {type: "data:text/plain;charset=UTF-8"});
-	saveAs(blob, "內容.txt");
+	var filename = data['title'] +".txt"
+	var blob = new Blob([data['content']], {type: "data:text/plain;charset=UTF-8"});
+	saveAs(blob, filename);
 	
 	/* download btn(prevent auto-downloading fail) */
 	$("#status").html("<div><span class=\"status-icon badge badge-success\">Success</span><span class=\"status-content\">若沒有自動下載，請點擊<a download=\"內容.txt\" id=\"download-link\">連結</a>下載，或右鍵連結另存為檔案。</span></div>");
@@ -64,13 +65,14 @@ function RequestFail(e) {
 
 function ProcessReturnData(data) {
 	/* check return data */
-	if(data[status]==false){
-		ErrorHandler("ProcessFail", data[reason]);
+	console.log("Data:\n",data)
+	if(data['status']=='fail'){
+		ErrorHandler("ProcessFail", data['reason']);
 	}else{
+		console.log('status success');
 		GenerateDownloadLink(data);
 	}
-	
-	GenerateDownloadLink(data);
+
 }
 
 function RequestData(rqType, rqUrl, rqData) {
@@ -99,6 +101,7 @@ function SubmitClick(event) {
 		btn_submit.addClass("disabled");
 		
 		url = $("#plurk-url").val();
+
 		// TODO:
 		//   do input examining to prevent attack
 		RequestData("POST", server_url, url)

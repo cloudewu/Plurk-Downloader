@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*
 # import packages
-from bs4 import BeautifulSoup as bs # for html parsing
+from bs4 import BeautifulSoup as bs 
 import requests as rq
 import slimit
 from slimit.parser import Parser
@@ -68,7 +68,7 @@ def get_content_by_link(plurk_url):
             print("Request Success! Status: {}.".format(plurk.status_code))
 
             # read content of HTML
-            soup = bs(plurk.text,features="lxml")
+            soup = bs(plurk.text)
             # extract the last script out
             script = soup.find_all("script")[-1].string
             
@@ -81,7 +81,6 @@ def get_content_by_link(plurk_url):
 
             request_url = "https://www.plurk.com/Responses/get"
             data = {'plurk_id': plurk_content.get('id'), 'from_response_id': '0'}
-            print(data)
             
             with rq.Session() as sess:
                 # request response from Responses/get, and use plurk_id as data to tell website which plurk we are requesting
@@ -95,10 +94,14 @@ def get_content_by_link(plurk_url):
                     head = soup.find_all("div", class_="plurk")  
                     string = ''
                     for owo in head[0].find("div", class_="text_holder"):
-                        string += str(owo)  
+                        string += str(owo)
 
+                    content_msg = 'owoowoowoowowowowowowoowow'
                     raw_data = {
                         "status": "success",
+                        "time": head[0].find("time", class_="timeago")['datetime'],
+                        "title": "YAAAAAA",
+                        "content": content_msg,
                         "plurk_info": {
                             "plurk_id":plurk_content.get('id'),
                             "user_id":plurk_content.get('user_id'),
@@ -118,7 +121,6 @@ def get_content_by_link(plurk_url):
                         "plurk":{
                             "poster_img": head[0].find("img").get("src"),
                             "poster_name": head[0].find("a", class_="name").text,
-                            "post_time": head[0].find("time", class_="timeago")['datetime'],
                             "post_content": string,
                             "response_count": response_content.get('response_count')        
                         },

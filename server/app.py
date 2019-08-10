@@ -1,10 +1,9 @@
 # -*- coding:utf-8 -*
 # import packages
-from mdutils.mdutils import MdUtils # help to create a markdown file
+from mdutils.mdutils import MdUtils 
 from flask import Flask, render_template, request, jsonify, Response
 import json
 import traceback
-# custom package
 import functions.crawl as function
     
 ##################
@@ -48,6 +47,8 @@ def after_request(response):
     return response
 
 if __name__ == '__main__':
+    app.jinja_env.auto_reload = True
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.run(host='0.0.0.0', port=8765, debug=True)
     
 

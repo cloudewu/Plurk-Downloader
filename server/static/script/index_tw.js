@@ -99,7 +99,8 @@ function SubmitClick(event) {
 		url = $("#plurk-url").val();
 		// TODO:
 		//   do input examining to prevent attack
-		RequestData("POST", "http://140.114.195.85:8765/backup", url)
+		// RequestData("POST", "http://140.114.195.85:8765/backup", url)
+		RequestData("POST", "http://127.0.0.1:8765/backup", url)
 	}
 }
 

@@ -179,9 +179,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return 'connection success!!'
+    return render_template('index.html')
 
-# upload json {"link":"https://~~~~"} to get clear data
+# upload json { "link": "plurk url" } to get clear data
 @app.route('/backup',methods=['GET','POST'])
 def upload_file():
     if request.method == 'GET':
@@ -208,6 +208,6 @@ def after_request(response):
     return response
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=1234, debug=True)
+    app.run(host='0.0.0.0', port=8765, debug=True)
     
 

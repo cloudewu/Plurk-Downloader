@@ -94,14 +94,15 @@ def get_content_by_link(plurk_url):
                     head = soup.find_all("div", class_="plurk")  
                     string = ''
                     for owo in head[0].find("div", class_="text_holder"):
-                        string += str(owo)
+                        string += str(owo)          
 
-                    content_msg = 'owoowoowoowowowowowowoowow'
+                    # the data will be return
                     raw_data = {
                         "status": "success",
-                        "time": head[0].find("time", class_="timeago")['datetime'],
-                        "title": "YAAAAAA",
-                        "content": content_msg,
+                        "time": head[0].find("time", class_="timeago")['datetime']  
+                    }
+
+                    detailed_data = {
                         "plurk_info": {
                             "plurk_id":plurk_content.get('id'),
                             "user_id":plurk_content.get('user_id'),
@@ -117,7 +118,7 @@ def get_content_by_link(plurk_url):
                             "lang":plurk_content.get('lang'),
                             "content":plurk_content.get('content'),
                             "content_raw":plurk_content.get('content_raw'),
-                        },
+                        },    
                         "plurk":{
                             "poster_img": head[0].find("img").get("src"),
                             "poster_name": head[0].find("a", class_="name").text,
@@ -142,7 +143,7 @@ def get_content_by_link(plurk_url):
                             user_img = "https://www.plurk.com/static/default_small.gif"
 
                         # every response 
-                        raw_data['response'].append({
+                        detailed_data['response'].append({
                             "user_id": user_id,
                             "user_img": user_img,
                             "user_name": users.get(user_id).get('display_name'),
@@ -152,6 +153,9 @@ def get_content_by_link(plurk_url):
                             "posted":response.get('posted')
                         })
 
+                    raw_data["title"] = detailed_data["plurk"]["poster_name"] + "_" + head[0].find("div", class_="text_holder").text
+                    raw_data["content"] = create_content(detailed_data)
+                    
                     return raw_data
 
                 else:
@@ -180,4 +184,8 @@ def get_content_by_link(plurk_url):
 
             return fail_msg
             
+
+def create_content(data):
+    print(data)
+    return data
 

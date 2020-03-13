@@ -14,12 +14,12 @@ A download helper to help users save certain plurk content.
 ## Progress
  **Plurk request**
   - [x] Request plurk content
-  - [ ] Filter useful content
+  - [x] Filter useful content
   - [ ] Transform to markdown syntax
 
  **Web deploy**
-  - [ ] Basic download page
-  - [ ] Beautfy the page
+  - [x] Basic download page
+  - [ ] Beautify the page
 
  **Bonus function**
   - [ ] Custom select what to include (time/likes/replurks, etc)
@@ -30,6 +30,7 @@ A download helper to help users save certain plurk content.
  **Other**
   - [ ] Different download format(pdf/jpeg, etc?)
   - [ ] Different program language(practice purpose)
+  - [ ] Support mobile url
 
 
 [git]: https://hackmd.io/Lbv2CVgQSFGicwa1ZVXcOw

@@ -14,7 +14,7 @@ import home  # home page rendering
 ##################
 app = Flask(__name__)
 
-# upload json { "link": "plurk url" } to get clear data
+# get clear txt by link
 @app.route('/backup',methods=['GET','POST'])
 def upload_file():
     if request.method == 'GET':
@@ -23,19 +23,28 @@ def upload_file():
     if request.method == 'POST':
         try:
             url = request.json.get('link')
-            print('Receive link\n', url)
-            raw_data = function.get_content_by_link(url)
-            # print(raw_data)
+            print('Receive link \n', url)
+            response = function.get_content_by_link(url)
+            return jsonify(response)
         except Exception as e:
             print("ERROR", {'error': str(e), 'trace': traceback.format_exc()})
-            msg = {
+            response = {
+                "status_code": 500,
                 "status":"fail", 
-                "reason":"500 Server Internal Error"
+                "reason":"Internal Server Error"
             }
-            return jsonify(msg)
+            return jsonify(response)
 
-        return jsonify(raw_data)
 
+# download makedown by link
+@app.route('/download_makedown',methods=['GET','POST'])
+def download_makedown():
+    if request.method == 'GET':
+        return "please choose post method"
+
+    if request.method == 'POST':
+        return "post"
+        
 
 @app.after_request
 def after_request(response):

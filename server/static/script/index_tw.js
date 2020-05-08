@@ -96,7 +96,7 @@ function RequestFail(e) {
 function ProcessReturnData(data) {
 	/* check return data */
 	// console.log("Data:\n",data)
-	if(data['status']=='fail'){
+	if(data['status_code']!=200){
 		ErrorHandler("ProcessFail", data['reason']);
 	}else{
 		GenerateDownloadLink(data);

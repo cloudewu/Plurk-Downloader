@@ -22,18 +22,18 @@ def upload_file():
 
     if request.method == 'POST':
         try:
-            url = request.json.get('link')
-            print('Receive link \n', url)
-            response = function.get_content_by_link(url)
-            return jsonify(response)
+            url = request.json.get('link')  
         except Exception as e:
-            print("ERROR", {'error': str(e), 'trace': traceback.format_exc()})
+            print('Exception:  ',e)
             response = {
-                "status_code": 500,
-                "status":"fail", 
-                "reason":"Internal Server Error"
+                "status_code": 500, 
+                "reason": "Internal Server Error. Cannot get input link"
             }
             return jsonify(response)
+
+        print('\n\nReceive link: ', url, '\n\n')
+        response = function.get_content_by_link(url)
+        return jsonify(response)
 
 
 # download makedown by link
@@ -43,7 +43,7 @@ def download_makedown():
         return "please choose post method"
 
     if request.method == 'POST':
-        return "post"
+        return "download beautiful makedown >///<"
         
 
 @app.after_request
@@ -51,6 +51,7 @@ def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Headers', '*')
     return response
+
 
 if __name__ == '__main__':
     # register blueprints

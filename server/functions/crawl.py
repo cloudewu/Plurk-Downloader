@@ -64,12 +64,13 @@ class JSVisitor(ASTVisitor):
 # "content":<content>,
 def get_content_by_link(plurk_url):
     # request plurk content from plurk.com
-    try:
-        with rq.Session() as sess:    
-            plurk = sess.get(plurk_url)
-            if plurk.status_code == rq.codes.ok:
-                print("Request Success! Status: {}.".format(plurk.status_code))
+    with rq.Session() as sess:
+        plurk = sess.get(plurk_url)
+        
+        if plurk.status_code == rq.codes.ok:
+            print("Request Success! Status: {}.".format(plurk.status_code))
 
+            try:
                 # read content of HTML
                 soup = bs(plurk.text,features="lxml")
                 # extract the last script out
@@ -84,150 +85,166 @@ def get_content_by_link(plurk_url):
 
                 request_url = "https://www.plurk.com/Responses/get"
                 data = {'plurk_id': plurk_content.get('id'), 'from_response_id': '0'}
-                
-                with rq.Session() as sess:
-                    # request response from Responses/get, and use plurk_id as data to tell website which plurk we are requesting
-                    # sess.post means HTTP POST
-                    response = sess.post(request_url, data=data)
-                    if response.status_code == rq.codes.ok:
-                        print("Request Success! Status: {}.".format(response.status_code))
-                        response_content = response.json()
+            except:
+                fail_response = {
+                    "status_code": 500,
+                    "reason": "extract plurk fail"
+                }
+                return fail_response
+            
+            
+            with rq.Session() as sess:
+                # request response from Responses/get, and use plurk_id as data to tell website which plurk we are requesting
+                # sess.post means HTTP POST
+                response = sess.post(request_url, data=data)
+                if response.status_code == rq.codes.ok:
+                    print("Request Success! Status: {}.".format(response.status_code))
+                    response_content = response.json()
                     
-                        # if response get success then create raw data for return
-                        head = soup.find_all("div", class_="plurk")  
-                        string = ''
-                        for owo in head[0].find("div", class_="text_holder"):
-                            string += str(owo)
+                    # if response get success then create raw data for return
+                    head = soup.find_all("div", class_="plurk")  
+                    string = ''
+                    for owo in head[0].find("div", class_="text_holder"):
+                        string += str(owo)
 
-                        detailed_data = {
-                            "plurk_info": {
-                                "plurk_id":plurk_content.get('id'),
-                                "user_id":plurk_content.get('user_id'),
-                                "favorite_count":plurk_content.get('favorite_count'),
-                                "response_count":plurk_content.get('response_count'),
-                                "replurkers_count":plurk_content.get('replurkers_count'),
-                                "coins":plurk_content.get('coins'),
-                                "qualifier":plurk_content.get('qualifier'),
-                                "anonymous":plurk_content.get('anonymous'),
-                                "st_edited":plurk_content.get('st_edited'),
-                                "no_comments":plurk_content.get('no_comments'),
-                                "posted":plurk_content.get('posted'),
-                                "lang":plurk_content.get('lang'),
-                                "content":plurk_content.get('content'),
-                                "content_raw":plurk_content.get('content_raw'),
-                            },    
-                            "plurk":{
-                                "poster_img": head[0].find("img").get("src"),
-                                "poster_name": head[0].find("a", class_="name").text,
-                                "post_content": string,
-                                "time": head[0].find("time", class_="timeago")['datetime'] ,
-                                "response_count": response_content.get('response_count')        
-                            },
-                            "response":[]
-                        }
+                    detailed_data = {
+                        "plurk_info": {
+                            "plurk_id":plurk_content.get('id'),
+                            "user_id":plurk_content.get('user_id'),
+                            "favorite_count":plurk_content.get('favorite_count'),
+                            "response_count":plurk_content.get('response_count'),
+                            "replurkers_count":plurk_content.get('replurkers_count'),
+                            "coins":plurk_content.get('coins'),
+                            "qualifier":plurk_content.get('qualifier'),
+                            "anonymous":plurk_content.get('anonymous'),
+                            "st_edited":plurk_content.get('st_edited'),
+                            "no_comments":plurk_content.get('no_comments'),
+                            "posted":plurk_content.get('posted'),
+                            "lang":plurk_content.get('lang'),
+                            "content":plurk_content.get('content'),
+                            "content_raw":plurk_content.get('content_raw'),
+                        },    
+                        "plurk":{
+                            "poster_img": head[0].find("img").get("src"),
+                            "poster_name": head[0].find("a", class_="name").text,
+                            "post_content": string,
+                            "time": head[0].find("time", class_="timeago")['datetime'] ,
+                            "response_count": response_content.get('response_count')        
+                        },
+                        "response":[]
+                    }
 
-                        users = response_content.get('users')
+                    users = response_content.get('users')
+                    if users != {}:
                         for response in response_content.get('responses'):
                             user_id = str(response.get('user_id'))
-
-                            # user profile image
-                            has_profile_image = users.get(user_id).get('has_profile_image')
-                            avatar = users.get(user_id).get('avatar')
-                            if has_profile_image == 1 and avatar != None:
-                                user_img = "https://avatars.plurk.com/" + user_id + "-small"+str(avatar)+".gif"
-                            elif has_profile_image == 1 and avatar == None:
-                                user_img = "https://avatars.plurk.com/" + user_id + "-small.gif"
-                            else:
-                                user_img = "https://www.plurk.com/static/default_small.gif"
+                            # # user profile image
+                            # has_profile_image = users.get(user_id).get('has_profile_image')
+                            # avatar = users.get(user_id).get('avatar')
+                            # if has_profile_image == 1 and avatar != None:
+                            #     user_img = "https://avatars.plurk.com/" + user_id + "-small"+str(avatar)+".gif"
+                            # elif has_profile_image == 1 and avatar == None:
+                            #     user_img = "https://avatars.plurk.com/" + user_id + "-small.gif"
+                            # else:
+                            #     user_img = "https://www.plurk.com/static/default_small.gif"
 
                             # every response 
                             detailed_data['response'].append({
                                 "user_id": user_id,
-                                "user_img": user_img,
                                 "user_name": users.get(user_id).get('display_name'),
+                                "nick_name": users.get(user_id).get('nick_name'),
                                 "name_color": users.get(user_id).get('name_color'),
                                 "content_raw": response.get('content_raw'),
                                 "content": response.get('content'),
-                                "posted":response.get('posted')
+                                "posted": response.get('posted')                                
                             })
 
-                        # the data will be return
-                        raw_data = {
-                            "status_code": 200,  
-                            "status": "success",
-                            "time": head[0].find("time", class_="timeago")['datetime'],
+                        return_data = {
+                            "status_code": 200,
+                            "time": detailed_data["plurk"]["time"],
                             "title": detailed_data["plurk"]["poster_name"] + "_" + head[0].find("div", class_="text_holder").text
                         }
-
-                        raw_data["content"] = create_txt_content(detailed_data) 
+                        return_data["content"] = create_txt_content(detailed_data) 
                         
-                        return raw_data
-
+                    # 偷偷說
                     else:
-                        print("Request fail. Status: {}.".format(response.status_code))
-                        fail_response = {
-                            "status_code": response.status_code,  
-                            "status": "fail", 
-                            "reason": "fail to request response from Responses/get"
+                        for response in response_content.get('responses'):                            
+                            detailed_data['response'].append({
+                                "handle": response.get('handle'),
+                                "content_raw": response.get('content_raw'),
+                                "content": response.get('content'),
+                                "posted": response.get('posted')                                
+                            })
+
+                        return_data = {
+                            "status_code": 200,
+                            "time": detailed_data["plurk"]["time"],
+                            "title": detailed_data["plurk"]["poster_name"] + "_" + head[0].find("div", class_="text_holder").text
                         }
-                        return fail_response
+                        return_data["content"] = create_secret_txt_content(detailed_data)                         
+                    
+                    
+                    return return_data
 
-            else:
-                print("Request fail. Status: {}.".format(plurk.status_code))
-
-                # server receive request but refuse to provide the service
-                if plurk.status_code == 403:    
-                    fail_response = {
-                        "status_code": 403,
-                        "status": "fail", 
-                        "reason": "403 Forbidden"
-                    }
-                # other error when plurk server receive request
                 else:
+                    print("Request fail. Status: {}.".format(response.status_code))
                     fail_response = {
-                        "status_code": plurk.status_code,
-                        "status": "fail", 
-                        "reason": "there are something wrong"
+                        "status_code": response.status_code,
+                        "reason": "fail to request response from Responses/get"
                     }
+                    return fail_response
+        
+        else:
+            if plurk.status_code == 403:                
+                fail_response = {
+                    "status_code": 403,
+                    "reason": "plurk Forbidden"
+                }   
+            else:
+                fail_response = {
+                    "status_code": plurk.status_code,
+                    "reason": "there are something wrong when plurk server receive request"
+                }
 
-                return fail_response
-    
-    except:
-        fail_response = {
-            "status_code": 500,
-            "status": "fail", 
-            "reason": "500 Internal Server Error"
-        }
-        print(fail_response)
-        print()
-
-        return fail_response
+            return fail_response
 
 
 def create_txt_content(data):
     md_file = ""
 
-    md_file += "**"+ data['plurk']['poster_name'] + "**  \n> " + data['plurk']['post_content'] + "\n"
-    md_file += "*"+ data['plurk']['time'] + "*\n\n" + str(data['plurk']['response_count']) + "則回應\n---\n\n"
+    md_file += "**" + data['plurk']['poster_name'] + "**  *" + data['plurk']['time'] + "*\n"
+    md_file += "> " + data['plurk']['post_content'] + "\n\n" + str(data['plurk']['response_count']) + "則回應\n---\n\n"
 
     for i in data['response']:
-        md_file +=  "**"+i['user_name'] + "**  *"+ i['posted'] + "*\n\n"+ i['content_raw'] + "\n- - -\n\n" 
+        md_file +=  "**"+ i['user_name'] + "**(" + i['nick_name'] +")  *"+ i['posted'] + "*\n> "+ i['content_raw'] + "\n- - -\n\n" 
 
     return md_file
-            
 
-def create_makedown_content(data):
+
+def create_secret_txt_content(data):
     md_file = ""
 
-    md_file += "![U](" + data['plurk']['poster_img'] + ")"
-    md_file += "**" + data['plurk']['poster_name']+ "**  \n" + data['plurk']['post_content'] + "  \n"
-    md_file += data['plurk']['time'] + "\n___  \n"
+    md_file += "**" + data['plurk']['poster_name'] + "**  *" + data['plurk']['time'] + "*\n"
+    md_file += "> " + data['plurk']['post_content'] + "\n\n" + str(data['plurk']['response_count']) + "則回應\n---\n\n"
 
-    md_file += str(data['plurk']['response_count']) + "則回應"
     for i in data['response']:
-        md_file += "\n\n" + "![U]("+i['user_img']+ ")\n"        
-        md_file += i['user_name'] + "  \n"    
-        md_file += i['content_raw'] + "  \n" + i['posted'] 
+        md_file += "**"+ i['handle'] + "**  *"+ i['posted'] + "*\n> "+ i['content_raw'] + "\n- - -\n\n" 
 
     return md_file
+
+
+# def create_makedown_content(data):
+#     md_file = ""
+
+#     md_file += "![U](" + data['plurk']['poster_img'] + ")"
+#     md_file += "**" + data['plurk']['poster_name']+ "**  \n" + data['plurk']['post_content'] + "  \n"
+#     md_file += data['plurk']['time'] + "\n___  \n"
+
+#     md_file += str(data['plurk']['response_count']) + "則回應"
+#     for i in data['response']:
+#         md_file += "\n\n" + "![U]("+i['user_img']+ ")\n"        
+#         md_file += i['user_name'] + "  \n"    
+#         md_file += i['content_raw'] + "  \n" + i['posted'] 
+
+#     return md_file
 

@@ -3,7 +3,8 @@ var elements =
 	{
 		alertBlock: null,
 		statusBlock: null,
-		btnSubmit: null
+		btnSubmit: null,
+		inputURL: null
 	}
 
 /* properties */
@@ -129,7 +130,7 @@ function RequestData(rqType, rqUrl, rqData) {
 	// RequestFail("test");
 }
 
-function SubmitClick(event) {
+function submitClick(event) {
 	if(!state.BTN_CLICKED){
 		state.BTN_CLICKED = true;
 		elements.btnSubmit.addClass("disabled");
@@ -142,14 +143,25 @@ function SubmitClick(event) {
 	}
 }
 
+function keyEnterPress(event)
+{
+	var keycode = event.keyCode || e.which;
+	if (keycode === 13) {
+		event.preventDefault();
+		elements.btnSubmit.click();
+    }
+}
+
 function onload() {
 	/* get component */
 	elements.alertBlock = $("#alert");
 	elements.statusBlock = $("#status");
 	elements.btnSubmit = $("#plurk-url-submit");
+	elements.inputURL = $("#plurk-url");
 	
-	/* page ready, registor event respectively */
-	elements.btnSubmit.click(SubmitClick);
+	/* page ready, registor events respectively */
+	elements.btnSubmit.click(submitClick);
+	elements.inputURL.keypress(keyEnterPress);
 	
 	/* setting */
 	elements.alertBlock.removeClass("d-none").hide();

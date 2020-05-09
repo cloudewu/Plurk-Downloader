@@ -1,0 +1,29 @@
+/* common setting */
+ * {
+	box-sizing: border-box;
+ }
+ 
+.btn {
+	background-color: #55bbff;
+	border-radius: 1rem;
+	padding: 0.5em 1em;
+}
+
+.btn#download-ufo {
+	position: fixed;
+	top: 1em;
+	right: 1em;
+	color: #55bbff;
+	opacity: 30%;
+}
+
+.btn#download-ufo:hover {
+	color: #ffffff;
+	opacity: 100%;
+}
+
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

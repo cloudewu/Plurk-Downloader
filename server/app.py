@@ -57,6 +57,6 @@ if __name__ == '__main__':
     # register blueprints
     app.register_blueprint(home.bp)
     
-    app.run(host='0.0.0.0', port=8765, debug=True)
+    app.run(host='localhost', port=8765, debug=True)
     
 

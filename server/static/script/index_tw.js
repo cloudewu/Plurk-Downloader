@@ -70,19 +70,20 @@ function ErrorHandler(type, message) {
 }
 
 function GenerateDownloadLink(data) {
-	console.log("Request succeed. Start to download.");
+	console.log("Request succeed. Open file in new tab.");
 	ShowAlert("success", "擷取成功！現在可以點擊下載檔案了。");
 	
-	content = "data:text/plain;charset=UTF-8," + encodeURIComponent(data['content']);
+	content = encodeURIComponent(data['content']);
 	
 	/* auto-download */
-	var filename = data['title'] +".txt"
-	var blob = new Blob([data['content']], {type: "data:text/plain;charset=UTF-8"});
+	// var filename = data['title'] +".txt"
+	// var blob = new Blob([data['content']], {type: "data:text/plain;charset=UTF-8"});
 	// saveAs(blob, filename);
 	
 	/* download btn(prevent auto-downloading fail) */
-	UpdateStatus("success", "若沒有自動下載，請點擊<a download=\"內容.txt\" id=\"download-link\">連結</a>下載，或右鍵連結另存為檔案。");
-	$("#download-link").attr("href", content);
+	UpdateStatus("success", "若沒有顯示檔案，請點擊<a id=\"download-link\" target=\"_blank\">連結</a>手動開啟畫面。");
+	$("#download-link").attr("href", '/download?content=' + content);
+	window.open('/download?content=' + content, '_blank');
 	
 	/* enable submit button to make the second download */
 	state.BTN_CLICKED = false;

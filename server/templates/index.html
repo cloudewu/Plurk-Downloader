@@ -14,8 +14,8 @@
 {% endblock %}
 
 {% block script %}
-	<script src=" {{url_for('static', filename='script/FileSaver.min.js')}} "></script>
-	<script src=" {{url_for('static', filename='script/index_tw.js')}} "></script>
+	<script src=" {{url_for('static', filename='script/FileSaver.min.js')}} " type="text/javascript"></script>
+	<script src=" {{url_for('static', filename='script/index_tw.js')}} " type="text/javascript"></script>
 {% endblock %}
 
 {# ========================================================================================= #}
@@ -37,7 +37,14 @@
 			<div class="intro">
 				<p>常常看到經典好噗，卻無法離線閱讀嗎？</p>
 				<p>只要在下方貼上噗文網址，我們就可以幫你轉為純文字檔下載儲存喔！</p>
-				<p class="text-ps border rounded-pill"><span>．</span>　文字格式支援markdown語法，可以直接利用hackmd、Visual Studio外掛等輔助工具增進閱讀體驗。</p>
+				<div class="pin-note hint border rounded-pill">
+					<table><tr>
+						<td><span class="pin text-ps">．</span></td>
+						<td>
+							<span class="note text-ps">文字格式支援Markdown語法，歡迎使用<a href="https://hackmd.io/recent" target="_blank">HackMD</a>等工具增進閱讀體驗。</span>
+						</td>
+					</tr></table>
+				</div>
 			</div>
 			
 			<div class="form card">
@@ -51,8 +58,13 @@
 			</div>
 		</div>
 		
-		<div class="status-column">
-			<div class="row justify-content-center" id="status"> </div>
+		<div class="pin-note status">
+			<table><tr>
+				<td> <span class="pin" id="status-icon"/> </td>
+				<td>
+					<span class="note text-ps" id="status-msg"/>
+				</td>
+			</tr></table>
 		</div>
 	</div>
 {% endblock %}

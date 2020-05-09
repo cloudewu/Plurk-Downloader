@@ -2,6 +2,8 @@
 var elements = 
 	{
 		alertBlock: null,
+		statusIcon: null,
+		statusMsg: null,
 		statusBlock: null,
 		btnSubmit: null,
 		inputURL: null
@@ -30,17 +32,29 @@ function ShowAlert(type, message)
 	setTimeout(()=>{elements.alertBlock.fadeOut("slow")}, properties.ALERT_TIME);
 }
 
-function UpdateStatus(type, message)
+/**
+ * Update status pin-note content
+ * @param iconClass: 
+ *        Classes list you want to assign to pin ('.pin' is loaded by default). Note that original classes will be discarded. 
+ *        (passing null to preserve all old classes)
+ * @param iconText: innerHTML you want to assign to pin
+ * @param noteClass: 
+ *        Classes list you want to assign to pin ('.note' is loaded by default). Note that original classes will be discarded. 
+ *        (assign null to preserve all old classes)
+ * @param noteText: innerHTML you want to assign to note
+ */
+function UpdateStatus(iconClass, iconText, noteClass, noteText)
 {
-	if(type!="primary" && type!="sencodary" && type!="success" && type!= "danger" && type!= "warning" && type!= "info" && type!= "lignt" && type!= "dark")
-	{
-		console.warn("Unknow status type: " + type);
-		return;
+	if(iconClass != null) {
+		elements.statusIcon.removeClass();
+		elements.statusIcon.addClass(['pin'].concat(iconClass));
 	}
-	let badge = "<span class=\"status-icon badge badge-" + type + "\">" + type + "</span>";
-	let content = "<span class=\"status-content\">" + message + "</span>";
-	
-	elements.statusBlock.html("<div>" + badge + content + "</div>");
+	elements.statusIcon.html(iconText);
+	if (noteClass != null) {
+		elements.statusMsg.removeClass();
+		elements.statusMsg.addClass(['note'].concat(noteClass));
+	}
+	elements.statusMsg.html(noteText);
 }
 
 /**
@@ -58,10 +72,10 @@ function ErrorHandler(type, message) {
 	
 	switch(type){
 	case "RequestFail":
-		UpdateStatus("danger", "請求失敗，請檢查連線，或者請稍後再試。");
+		UpdateStatus(['badge', 'badge-danger'], "Fail", null, "請求失敗，請檢查連線，或者請稍後再試。");
 		break;
 	case "ProcessFail":
-		UpdateStatus("danger", "解析失敗，請檢查噗文網址是否正確。");
+		UpdateStatus(['badge', 'badge-danger'], "Fail", null, "解析失敗，請檢查噗文網址是否正確。");
 		break;
 	default:
 		console.log("Unknow error.")
@@ -75,13 +89,7 @@ function GenerateDownloadLink(data) {
 	
 	content = encodeURIComponent(data['content']);
 	
-	/* auto-download */
-	// var filename = data['title'] +".txt"
-	// var blob = new Blob([data['content']], {type: "data:text/plain;charset=UTF-8"});
-	// saveAs(blob, filename);
-	
-	/* download btn(prevent auto-downloading fail) */
-	UpdateStatus("success", "若沒有顯示檔案，請點擊<a id=\"download-link\" target=\"_blank\">連結</a>手動開啟畫面。");
+	UpdateStatus(['badge', 'badge-success'], "success", null, "若沒有顯示檔案，請點擊<a id=\"download-link\" target=\"_blank\">連結</a>手動開啟畫面。");
 	$("#download-link").attr("href", '/download?content=' + content);
 	window.open('/download?content=' + content, '_blank');
 	
@@ -96,7 +104,6 @@ function RequestFail(e) {
 
 function ProcessReturnData(data) {
 	/* check return data */
-	// console.log("Data:\n",data)
 	if(data['status_code']!=200){
 		ErrorHandler("ProcessFail", data['reason']);
 	}else{
@@ -114,7 +121,7 @@ function ProcessReturnData(data) {
 function RequestData(rqType, rqUrl, rqData) {
 	console.log("Requesting data...");
 	/* show loading icon */
-	elements.statusBlock.html("<div class=\"spinner-border text-success\"/><span class=\"text-dark status-content\">處理中...</span>");
+	UpdateStatus(['spinner-border', 'text-success'], '', null, '處理中...');
 	
 	/* get data */
 	$.ajax({
@@ -126,9 +133,6 @@ function RequestData(rqType, rqUrl, rqData) {
 		success: ProcessReturnData,
 		error: RequestFail
 	});
-	
-	// GenerateDownloadLink(rqData);
-	// RequestFail("test");
 }
 
 function submitClick(event) {
@@ -156,7 +160,8 @@ function keyEnterPress(event)
 function onload() {
 	/* get component */
 	elements.alertBlock = $("#alert");
-	elements.statusBlock = $("#status");
+	elements.statusIcon = $("#status-icon");
+	elements.statusMsg = $("#status-msg");
 	elements.btnSubmit = $("#plurk-url-submit");
 	elements.inputURL = $("#plurk-url");
 	

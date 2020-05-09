@@ -1,4 +1,4 @@
-/* common setting */
+/*--- common setting ---*/
  * {
 	box-sizing: border-box;
 	font-family: 'Noto Serif TC', 'Poppins', sans-serif;
@@ -22,6 +22,31 @@ p {
 	font-size: 1em;
 }
 
+/*--- placeholder ---*/
+::placeholder { 		/* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #ccc !important;
+}
+
+:-moz-placeholder { 	/* Old Firefox */
+  color: #ccc !important;
+}
+
+::-moz-placeholder { 	 /* new Firefox */
+  color: #ccc !important;
+}
+
+:-ms-input-placeholder {  /* IE */
+  color: #ccc !important;
+}
+
+::-ms-input-placeholder {  /* Edge */
+  color: #ccc !important;
+}
+
+::-webkit-input-placeholder { /* Edge */
+  color: #ccc !important;
+}
+
 /* nav bar */
 .navbar {
 	background-color: #FF574D;
@@ -32,30 +57,45 @@ p {
 }
 
 /* content */
+
 .text-ps {
 	color: rgb(100, 100, 100);
 	font-size: 0.8em;
-	padding: 5px 0.5em;
+	padding: 0.3em 0;
 }
 
 .intro {
 	padding: 2em;
 }
 
+/* pin-note */
+.pin-note td {
+	padding: 0 0.2em;
+}
+
+/* hint */
+.hint {
+	padding: 0 0.5em 0 0.7em;
+}
+
+.hint td {
+	vertical-align: top;
+}
+
+
 /* status */
-.status-column {
-	margin: 2em 0;
+.status {
+	margin: 2em 0 5em 0;
 }
 
-.status-content {
-	padding-left: 1em;
-	font-size: 0.8em;
-	color: rgb(100, 100, 100);
+.status table {
+	margin: 0 auto;
 }
 
-.status-icon {
-	font-size: 1em;
+#status-icon {
+	font-size: 0.9em;
 }
+
 
 /* footer */
 .footer {
@@ -82,12 +122,35 @@ p {
 	top: 2em;
 }
 
-/* for tablet and mobile phone */
-@media only screen and (max-width: 991.98px){
+/*------------- RWD component  -------------*/
+
+/* for normal appearance */
+.content-body {
+	width: 70%;
+	min-width: 300px;
+	margin: 2em auto;
+}
+
+.intro {
+	padding: 2em;
+}
+
+#alert {
+	width: 70%;
+	left: 15%;
+}
+
+/* for horizontal tablet */
+@media only screen and (max-width: 768px){
+	/*991.98*/
 	.content-body {
-		width: 90%;
+		width: 95%;
 		min-width: 300px;
 		margin: 2em auto;
+	}
+	
+	.intro {
+		padding: 2em;
 	}
 	
 	#alert {
@@ -96,15 +159,13 @@ p {
 	}
 }
 
-@media only screen and (min-width: 992px){
-	.content-body {
-		width: 70%;
-		min-width: 300px;
-		margin: 2em auto;
+/* for mobile phone */
+@media only screen and (max-width: 576px){
+	
+	.intro {
+		padding: 2em 0;
 	}
 	
-	#alert {
-		width: 70%;
-		left: 15%;
-	}
 }
+
+

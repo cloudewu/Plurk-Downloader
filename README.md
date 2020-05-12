@@ -15,11 +15,12 @@ A download helper to help users save certain plurk content.
  **Plurk request**
   - [x] Request plurk content
   - [x] Filter useful content
-  - [ ] Transform to markdown syntax
+  - [x] Transform to markdown syntax
 
  **Web deploy**
   - [x] Basic download page
-  - [ ] Beautify the page
+  - [x] Beautify the page
+  - [x] Deploy web app
 
  **Bonus function**
   - [ ] Custom select what to include (time/likes/replurks, etc)

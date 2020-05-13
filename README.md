@@ -1,6 +1,12 @@
 # Plurk-Downloader
 A download helper to help users save certain plurk content.
 
+## Build docker image
+1. clone and enter this repository
+2. build docker image: `docker build -t plurk-downloader .`
+3. run docker containter: `docker run --rm -dp 8000:8000 plurk-downloader`
+4. open your browser and open `http://localhost:8000`
+
 ## Useful Link
  * [Git cheat sheet][git]
  * [使用 Go 撰寫 Plurk 噗浪偷偷說網路爬蟲][go-crawler]
@@ -20,9 +26,10 @@ A download helper to help users save certain plurk content.
  **Web deploy**
   - [x] Basic download page
   - [x] Beautify the page
-  - [x] Deploy web app
+  - [ ] Deploy web app
 
  **Bonus function**
+  - [x] Dockerize the app
   - [ ] Custom select what to include (time/likes/replurks, etc)
   - [ ] Only download plurk-owner's response
   - [ ] Filter specific plurker

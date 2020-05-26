@@ -147,17 +147,18 @@ def get_content_by_link(plurk_url):
                             #     user_img = "https://avatars.plurk.com/" + user_id + "-small.gif"
                             # else:
                             #     user_img = "https://www.plurk.com/static/default_small.gif"
-
-                            # every response 
-                            detailed_data['response'].append({
-                                "user_id": user_id,
-                                "user_name": users.get(user_id).get('display_name'),
-                                "nick_name": users.get(user_id).get('nick_name'),
-                                "name_color": users.get(user_id).get('name_color'),
-                                "content_raw": response.get('content_raw'),
-                                "content": response.get('content'),
-                                "posted": response.get('posted')                                
-                            })
+                    
+                            # every response
+                            if(users.get(user_id) != None):
+                                detailed_data['response'].append({
+                                    "user_id": user_id,
+                                    "user_name": users.get(user_id).get('display_name'),
+                                    "nick_name": users.get(user_id).get('nick_name'),
+                                    "name_color": users.get(user_id).get('name_color'),
+                                    "content_raw": response.get('content_raw'),
+                                    "content": response.get('content'),
+                                    "posted": response.get('posted')                                
+                                })
 
                         return_data = {
                             "status_code": 200,

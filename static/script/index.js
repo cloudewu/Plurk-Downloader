@@ -63,10 +63,6 @@ function UpdateStatus(iconClass, iconText, noteClass, noteText)
  * @param message: error message information (best provided for debug).
  */
 function ErrorHandler(type, message) {
-	/* enable submit btn */
-	state.BTN_CLICKED = false;
-	elements.btnSubmit.removeClass("disabled");
-	
 	/* set alert */
 	ShowAlert("danger", "似乎出了點問題，晚點再試試！")
 	
@@ -81,6 +77,8 @@ function ErrorHandler(type, message) {
 		console.log("Unknow error.")
 	}
 	console.log(message);
+	
+	submitBtnRestore();
 }
 
 function GenerateDownloadLink(data) {
@@ -93,9 +91,7 @@ function GenerateDownloadLink(data) {
 	$("#download-link").attr("href", '/download?content=' + content);
 	window.open('/download?content=' + content, '_blank');
 	
-	/* enable submit button to make the second download */
-	state.BTN_CLICKED = false;
-	elements.btnSubmit.removeClass("disabled");
+	submitBtnRestore();
 }
 
 function RequestFail(e) {
@@ -120,8 +116,6 @@ function ProcessReturnData(data) {
  */
 function RequestData(rqType, rqUrl, rqData) {
 	console.log("Requesting data...");
-	/* show loading icon */
-	UpdateStatus(['spinner-border', 'text-success'], '', null, '處理中...');
 	
 	/* get data */
 	$.ajax({
@@ -135,16 +129,60 @@ function RequestData(rqType, rqUrl, rqData) {
 	});
 }
 
+function inputPrecheck(input) {
+	// strip string
+	url = input.replace(/^\s+|\s+$/g, '');
+	console.log(url);
+	
+	// preclude invalid charactors
+	let validChars = /^[\d|a-zA-Z:/.\/]+$/;
+	if(!validChars.test(url)) {
+		UpdateStatus(['badge', 'badge-danger'], "Error", null, "輸入不正確。請確保輸入不含非法符號，且輸入欄不可為空。");
+		return null;
+	}
+	
+	// deal with mobile url: 'plurk.com/m/p/xxxx' -> 'plurk.com/p/xxxx'
+	url = url.replace(/com\/m\/p/g, 'com/p');
+	console.log(url);
+	
+	// automatically append protocal: http/https
+	if(!url.startsWith('http')) {
+		url = 'https://' + url;
+		console.log(url);
+	}
+	
+	// check url format
+	// valid format:
+	//   * http://www.plurk.com/p/xxxx
+	//   * https://www.plurk.com/p/xxxx
+	urlFormat = validFormat = /^((http|https):\/\/)?www.plurk.com\/p\/([\da-z]+)$/
+	if(!urlFormat.test(url)) {
+		UpdateStatus(['badge', 'badge-danger'], "Error", null, "網址格式不正確。請確保輸入網址為噗文網址。<br/>(www.plurk.com/p/...或www.plurk.com/m/p/...)");
+		return null;
+	}
+	
+	return url;
+}
+
+// restore submit button status and re-enable input again
+function submitBtnRestore() {
+	state.BTN_CLICKED = false;
+	elements.btnSubmit.removeClass("disabled");
+}
+
 function submitClick(event) {
 	if(!state.BTN_CLICKED){
 		state.BTN_CLICKED = true;
-		elements.btnSubmit.addClass("disabled");
+		elements.btnSubmit.addClass("disabled");		
+		/* show loading icon */
+		UpdateStatus(['spinner-border', 'text-success'], '', null, '處理中...');
 		
-		url = $("#plurk-url").val();
-
-		// TODO:
-		//   do input examining to prevent attack
-		RequestData("POST", "/backup", url)
+		url = inputPrecheck($("#plurk-url").val());
+		if(url != null) {
+			RequestData("POST", "/backup", url)
+		}else {
+			submitBtnRestore();
+		}
 	}
 }
 

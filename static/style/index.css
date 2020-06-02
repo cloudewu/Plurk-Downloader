@@ -53,7 +53,8 @@ p {
 }
 
 #nav-icon {
-	width: 30px;
+	width: 25px;
+	margin: auto 10px;
 }
 
 /* content */

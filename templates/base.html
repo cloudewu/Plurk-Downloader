@@ -11,6 +11,7 @@
 	
 	<!-- resource loading -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">	
+	<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
 	
 	{% block CSS %}
 		{# Please load font and custom style sheet here #}
@@ -21,7 +22,7 @@
 <body>
 	<!-- nav bar --> 
 	<nav class="navbar navbar-dark navbar-expand-sm">
-		<span class="navbar-brand" href="#"><img class="icon" id="nav-icon" src={{url_for("static", filename="img/plurk_icon.png")}}/>噗文轉存器</span>
+		<span class="navbar-brand" href="#"><img class="icon" id="nav-icon" src={{url_for("static", filename="img/favicon_white.png")}}/>噗文轉存器</span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>

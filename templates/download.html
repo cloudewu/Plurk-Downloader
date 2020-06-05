@@ -1,14 +1,30 @@
-<!DOCTYPE HTML>
-<html lang='zh-tw'>
-<head>
+{% extends 'base.html' %}
+
+{# ================================ HEADER =========================================== #}
+
+{% block lang %} 
+	zh-Hant-TW
+{% endblock %}
+
+{% block encoding %} 
+	utf-8
+{% endblock %}
+
+{% block title %} 
+	下載頁面
+{% endblock %}
+
+{% block resource %} 
 	<link href=" {{url_for('static', filename='style/download.css') }} " rel="stylesheet">
-</head>
-<body>
+{% endblock %}
+
+{# ================================= BODY ============================================= #}
+
+{% block body %} 
 	<!--button class='btn' id='download-ufo'-->
 		<a class='btn' id='download-ufo' href=' {{ link }} ' download='content.txt'>Download</a>
 	<!--/button-->
 	<div class='content'>
 		<pre>{{ content }}</pre>
 	</div>
-</body>
-</html>
+{% endblock %}

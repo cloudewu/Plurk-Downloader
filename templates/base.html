@@ -2,60 +2,30 @@
 <html lang="{% block lang %} {% endblock %}">
 <head>
 	<!-- webpage description -->
-	<meta charset="utf-8">
+	<meta charset="{% block encoding %} {% endblock %}">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Plurk downloader">
-    <meta name="author" content="Cloude">
+    <meta name="description" content="Plurk Extractor">
 
-	<title>{% block title %} {% endblock %}噗文轉存器Alpha</title>
+	<title>{% block title %} {% endblock %}</title>
 	
 	<!-- resource loading -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">	
 	<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
 	
-	{% block CSS %}
+	{% block resource %}
 		{# Please load font and custom style sheet here #}
-		<link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC&display=swap" rel="stylesheet">
 	{% endblock %}
 	
 </head>
 <body>
-	<!-- nav bar --> 
-	<nav class="navbar navbar-dark navbar-expand-sm py-0">
-		<span class="navbar-brand" href="#"><img class="icon" id="nav-icon" src={{url_for("static", filename="img/favicon_white.png")}}/>噗文轉存器</span>
-		<button class="navbar-toggler py-0 px-2" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-			<div class="navbar-nav">
-				{% block navButton %}
-				{% endblock %}				
-			</div>
-		</div>
-	</nav>
-	
-	{% block content %} 
+	{% block body %} 
 		{# main content in the page #}
 		<p>The page is empty.</p>
 	{% endblock %}
 	
-	{#% block dump %} {% endblock %#}
-	
-	<!-- footer -->
-	<footer class="footer"> 
-		{% block footer %} {% endblock %}
-	</footer>
-
 	<!-- script resource loading -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	
 	{% block script %} 
 		{# Please load custom JS script here #}
 		{# jquery and bootstrap script is loaded by default #}
 	{% endblock %}
-	
 </body>
-	<!-- Clude Wu August, 2019 -->
 </html>

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{# ================================ HEADER =========================================== #}
+
+{% block lang %} 
+	zh-Hant-TW
+{% endblock %}
+
+{% block encoding %} 
+	utf-8
+{% endblock %}
+
+{% block title %} 
+	{% block pretitle %} {% endblock %}噗文轉存器Alpha
+{% endblock %}
+
+{% block resource %} 
+	<link href=" {{url_for('static', filename='style/download.css') }} " rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">	
+	
+	{% block CSS %}
+		{# Please load font and custom style sheet here #}
+		<link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC&display=swap" rel="stylesheet">
+	{% endblock %}
+	
+{% endblock %}
+
+{# ================================ SCRIPTS =========================================== #}
+	
+{% block script %} 
+	{# Please load custom JS script here #}
+	{# jquery and bootstrap script is loaded by default #}
+	<!-- script resource loading -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+{% endblock %}
+	
+
+{# ================================= BODY ============================================= #}
+
+{% block body %}
+	<!-- nav bar --> 
+	<nav class="navbar navbar-dark navbar-expand-sm py-0">
+		<span class="navbar-brand" href="#"><img class="icon" id="nav-icon" src={{url_for("static", filename="img/favicon_white.png")}}/>噗文轉存器</span>
+		<button class="navbar-toggler py-0 px-2" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div class="navbar-nav">
+				{% block navButton %}
+				{% endblock %}
+			</div>
+		</div>
+	</nav>
+	
+	<!-- main content -->
+	{% block content %} 
+		{# main content in the page #}
+	{% endblock %}
+
+	<!-- footer -->
+	<footer class="footer"> 
+		{% block footer %} {% endblock %}
+	</footer>
+{% endblock %}

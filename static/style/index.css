@@ -52,6 +52,10 @@ p {
 	background-color: #FF574D;
 }
 
+.navbar-toggler-icon {
+	font-size: 0.9rem;
+}
+
 #nav-icon {
 	width: 25px;
 	margin: auto 10px;

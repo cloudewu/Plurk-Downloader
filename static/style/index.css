@@ -22,7 +22,7 @@ p {
 	font-size: 1em;
 }
 
-/*--- placeholder ---*/
+/*--- input placeholder ---*/
 ::placeholder { 		/* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #ccc !important;
 }
@@ -47,7 +47,7 @@ p {
   color: #ccc !important;
 }
 
-/* nav bar */
+/*--- nav bar ---*/
 .navbar {
 	background-color: #FF574D;
 }
@@ -61,7 +61,14 @@ p {
 	margin: auto 10px;
 }
 
-/* content */
+/*--- content ---*/
+.content {
+	margin: 3rem 0;
+}
+
+.title {
+	margin-top: 3rem;
+}
 
 .text-ps {
 	color: rgb(100, 100, 100);
@@ -73,12 +80,12 @@ p {
 	padding: 2em;
 }
 
-/* pin-note */
+/*--- pin-note ---*/
 .pin-note td {
 	padding: 0 0.2em;
 }
 
-/* hint */
+/*--- hint ---*/
 .hint {
 	padding: 0 0.5em 0 0.7em;
 }
@@ -88,9 +95,9 @@ p {
 }
 
 
-/* status */
-.status {
-	margin: 2em 0 5em 0;
+/*--- extractor status block ---*/
+#status-block {
+	margin: 2em;
 }
 
 .status table {
@@ -102,7 +109,11 @@ p {
 }
 
 
-/* footer */
+/*--- footer ---*/
+.placeholder-box {
+	height: 3rem;
+}
+
 .footer {
 	background-color: #FF574D;
 	position: absolute;
@@ -120,7 +131,8 @@ p {
 	margin: 0;
 }
 
-/* float alert */
+
+/*--- floating alert ---*/
 #alert {
 	z-index: 1000;
 	opacity: 0.9;

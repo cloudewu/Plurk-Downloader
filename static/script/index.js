@@ -173,7 +173,8 @@ function submitBtnRestore() {
 function submitClick(event) {
 	if(!state.BTN_CLICKED){
 		state.BTN_CLICKED = true;
-		elements.btnSubmit.addClass("disabled");		
+		elements.btnSubmit.addClass("disabled");
+		elements.statusBlock.show();		
 		/* show loading icon */
 		UpdateStatus(['spinner-border', 'text-success'], '', null, '處理中...');
 		
@@ -198,16 +199,18 @@ function keyEnterPress(event)
 function onload() {
 	/* get component */
 	elements.alertBlock = $("#alert");
+	elements.statusBlock = $("#status-block");
 	elements.statusIcon = $("#status-icon");
 	elements.statusMsg = $("#status-msg");
 	elements.btnSubmit = $("#plurk-url-submit");
 	elements.inputURL = $("#plurk-url");
 	
-	/* page ready, registor events respectively */
+	/* page ready, regist events respectively */
 	elements.btnSubmit.click(submitClick);
 	elements.inputURL.keypress(keyEnterPress);
 	
 	/* setting */
+	elements.statusBlock.hide();
 	elements.alertBlock.removeClass("d-none").hide();
 	state.BTN_CLICKED = false;
 }

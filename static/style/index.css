@@ -14,8 +14,8 @@ body {
 }
 
 hr {
-	color: rgba(30, 30, 30, 50)
-	border-width: 0.2em;
+	color: rgba(30, 30, 30, 50);
+	border-width: 0.1rem;
 }
 
 p {
@@ -76,8 +76,13 @@ p {
 	padding: 0.3em 0;
 }
 
-.intro {
-	padding: 2em;
+.text-dim {
+	color: #ccc;
+}
+
+/*-- input form --*/
+#url-submit-block {
+	margin: 2em auto;
 }
 
 /*--- pin-note ---*/
@@ -150,7 +155,7 @@ p {
 }
 
 .intro {
-	padding: 2em;
+	padding: 2em 2em 0 2em;
 }
 
 #alert {
@@ -168,7 +173,7 @@ p {
 	}
 	
 	.intro {
-		padding: 2em;
+		padding: 2em 2em 0 2em;
 	}
 	
 	#alert {
@@ -181,7 +186,7 @@ p {
 @media only screen and (max-width: 576px){
 	
 	.intro {
-		padding: 2em 0;
+		padding: 2em 0 0 0;
 	}
 	
 }

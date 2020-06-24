@@ -1,14 +1,14 @@
 {
 	"version": 2,
 	"builds": [
-		{ "src": "app.py", "use": "@liudonghua123/now-flask" }
+		{ "src": "*.py", "use": "@vercel/python@canary" },
+		{ "src": "static/**", "use": "@vercel/static" }
 	],
 	"routes": [
 		{ "src": "/backup", "dest": "app.py" },
 		{ "src": "/download", "dest": "app.py" },
 		{ "src": "/download_makedown", "dest": "app.py" },
 		{ "src": "/index", "dest": "app.py" },
-		{ "src": "/", "dest": "app.py" },
-		{ "src": "/*", "dest": "app.py" }
+		{ "src": "/", "dest": "app.py" }
 	]
 }

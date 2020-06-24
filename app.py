@@ -56,32 +56,10 @@ def after_request(response):
     return response
 
 @app.route('/')
+@app.route('/index')
 def root():
     return render_template('index.html')
 
-import os
-@app.route('/static/style/<resource_path>')
-def get_style(resource_path):
-    print("Get css file: " + resource_path)
-    with open(os.path.join('static', 'style', resource_path), 'r') as f:
-        data = f.read()
-    return Response(data, mimetype="text/css")
-
-@app.route('/static/script/<resource_path>')
-def get_script(resource_path):
-    print("Get js file: " + resource_path)
-    with open(os.path.join('static', 'script', resource_path), 'r') as f:
-        data = f.read()
-    return Response(data, mimetype="text/javascript")
-
-@app.route('/static/img/<resource_path>')
-def get_image(resource_path):
-    print("Get img file: " + resource_path)
-    with open(os.path.join('static', 'img', resource_path), 'rb') as f:
-        data = f.read()
-    return Response(data, mimetype="image/png")
-
-@app.route('/index')
 def index():
     return render_template('index.html')
 

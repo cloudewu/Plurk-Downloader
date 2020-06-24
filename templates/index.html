@@ -29,7 +29,7 @@
 	<a class="nav-item nav-link py-1" href="#">關於我們</a>
 {% endblock %}
 
-{% block content %} 
+{% block content %}
 	<div class="container content-body">
 		<div class="position-fixed d-none" id="alert">
 			<div class="alert alert-success">alert.</div>
@@ -141,6 +141,11 @@
 
 		<!-- Place holder -->
 		<div class="placeholder-box"></div>
+
+		<!-- hidden form -->
+		<form id="download-request-form" method="POST" action="/download" target="_blank" class="hide">
+			<textarea id="download-content" type="hidden" name="content"></textarea>
+		</form>
 	</div>
 {% endblock %}
 

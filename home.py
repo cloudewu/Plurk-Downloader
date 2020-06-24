@@ -12,8 +12,12 @@ bp = Blueprint('index', __name__)
 def index():
     return render_template('index.html')
 
-@bp.route('/download')
+@bp.route('/download', methods=['POST'])
 def download():
-	query = request.args.get('content')
-	encodeURI = 'data:text/plain;charset=UTF-8,' + urllib.parse.quote(query)
-	return render_template('download.html', content=query, link=encodeURI)
+	if request.method == 'GET':
+		return "Currently not allowed"
+	elif request.method == 'POST':
+		content = request.form['content']
+		query = urllib.parse.unquote(content)
+		encodeURI = 'data:text/plain;charset=UTF-8,' + query
+		return render_template('download.html', content=query, link=encodeURI)

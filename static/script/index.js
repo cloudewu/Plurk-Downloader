@@ -81,16 +81,22 @@ function ErrorHandler(type, message) {
 	submitBtnRestore();
 }
 
+function openDownloadPage(content) {
+	$("#download-content").val(content);
+	$("#download-request-form").submit();
+}
+
 function GenerateDownloadLink(data) {
 	console.log("Request succeed. Open file in new tab.");
 	ShowAlert("success", "擷取成功！現在可以點擊下載檔案了。");
 	
 	content = encodeURIComponent(data['content']);
 	
-	UpdateStatus(['badge', 'badge-success'], "success", null, "若沒有顯示檔案，請點擊<a id=\"download-link\" target=\"_blank\">連結</a>手動開啟畫面。");
-	$("#download-link").attr("href", '/download?content=' + content);
-	window.open('/download?content=' + content, '_blank');
-	
+	UpdateStatus(['badge', 'badge-success'], "success", null, "若沒有顯示檔案，請點擊<a href=\"/download\" id=\"download-link\">連結</a>手動開啟畫面。");
+	console.log("openDownloadPage(\""+content+"\"); return false;");
+	$("#download-link").attr("onclick", "openDownloadPage(\""+content+"\"); return false;");
+
+	openDownloadPage(content);
 	submitBtnRestore();
 }
 

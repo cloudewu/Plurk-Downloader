@@ -105,3 +105,4 @@ venv.bak/
 
 # test file
 111.json
+.vercel

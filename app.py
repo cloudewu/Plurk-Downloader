@@ -1,13 +1,14 @@
 # -*- coding:utf-8 -*
 # import packages
-from flask import Flask, request, jsonify, Response
+from flask import Flask, request, jsonify, Response, render_template
 import json
 import argparse
 import traceback
+import urllib.parse
 
 import functions.crawl as function
 
-import home  # home page rendering 
+# import home  # home page rendering
     
 ##################
 #                #
@@ -54,6 +55,42 @@ def after_request(response):
     response.headers.add('Access-Control-Allow-Headers', '*')
     return response
 
+@app.route('/')
+def root():
+    return render_template('index.html')
+
+import os
+@app.route('/static/style/<resource_path>')
+def get_style(resource_path):
+    print("Get css file: " + resource_path)
+    with open(os.path.join('static', 'style', resource_path), 'r') as f:
+        data = f.read()
+    return Response(data, mimetype="text/css")
+
+@app.route('/static/script/<resource_path>')
+def get_script(resource_path):
+    print("Get js file: " + resource_path)
+    with open(os.path.join('static', 'script', resource_path), 'r') as f:
+        data = f.read()
+    return Response(data, mimetype="text/javascript")
+
+@app.route('/static/img/<resource_path>')
+def get_image(resource_path):
+    print("Get img file: " + resource_path)
+    with open(os.path.join('static', 'img', resource_path), 'rb') as f:
+        data = f.read()
+    return Response(data, mimetype="image/png")
+
+@app.route('/index')
+def index():
+    return render_template('index.html')
+
+@app.route('/download')
+def download():
+	query = request.args.get('content')
+	encodeURI = 'data:text/plain;charset=UTF-8,' + urllib.parse.quote(query)
+	return render_template('download.html', content=query, link=encodeURI)
+
 def parse_arg():
     # [Note] If you modify the default value here, please update Dockerfile at the same time #
     parser = argparse.ArgumentParser()
@@ -66,7 +103,7 @@ if __name__ == '__main__':
     host, port = args.host, args.port
     
     # register blueprints
-    app.register_blueprint(home.bp)
+    # app.register_blueprint(home.bp)
     
     app.run(host=host, port=port, debug=True)
     

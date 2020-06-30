@@ -59,24 +59,39 @@ function UpdateStatus(iconClass, iconText, noteClass, noteText)
 
 /**
  * Handle processing errors and show in floating alert pop-up and status bar.
- * @param type: error type.
+ * @param retCode: error type.
  * @param message: error message information (best provided for debug).
  */
-function ErrorHandler(type, message) {
+function ErrorHandler(retCode, message) {
 	/* set alert */
 	ShowAlert("danger", "似乎出了點問題，晚點再試試！")
 	
-	switch(type){
-	case "RequestFail":
+	switch(retCode){
+	case 0:
+		// request fail
 		UpdateStatus(['badge', 'badge-danger'], "Fail", null, "請求失敗，請檢查連線，或者請稍後再試。");
+		console.error("Request Fail\n" + message);
 		break;
-	case "ProcessFail":
-		UpdateStatus(['badge', 'badge-danger'], "Fail", null, "解析失敗，請檢查噗文網址是否正確。");
+	case 403:
+		// private plurk
+		UpdateStatus(['badge', 'badge-danger'], "Fail", null, "存取失敗，請檢查該噗是否為私噗，或噗主是否有鎖河道。");
+		console.error("403\n" + message);
+		break;
+	case 404:
+		// plurk not found
+		UpdateStatus(['badge', 'badge-danger'], "Fail", null, "請求失敗，請噗文網址是否正確。");
+		console.error("404\n" + message);
+		break;
+	case 500:
+		// internal server error
+		UpdateStatus(['badge', 'badge-danger'], "Fail", null, "內部錯誤，請稍後再試。若多次出現，請協助填寫問題回報");
+		console.error("500\n" + message);
 		break;
 	default:
-		console.log("Unknow error.")
+		UpdateStatus(['badge', 'badge-danger'], retCode, null, "未知錯誤，請協助填寫問題回報。");
+		console.warn("Unknow error.");
+		console.error(retCode + "\n" + message);
 	}
-	console.log(message);
 	
 	submitBtnRestore();
 }
@@ -105,13 +120,12 @@ function RequestFail(e) {
 }
 
 function ProcessReturnData(data) {
-	/* check return data */
-	if(data['status_code']!=200){
-		ErrorHandler("ProcessFail", data['reason']);
-	}else{
+	var retCode = data['status_code'];
+	if(retCode==200){
 		GenerateDownloadLink(data);
+	}else{
+		ErrorHandler(retCode, data['reason']);
 	}
-
 }
 
 /**
@@ -170,7 +184,8 @@ function inputPrecheck(input) {
 	return url;
 }
 
-// restore submit button status and re-enable input again
+/** restore submit button status and re-enable input again
+ */
 function submitBtnRestore() {
 	state.BTN_CLICKED = false;
 	elements.btnSubmit.removeClass("disabled");

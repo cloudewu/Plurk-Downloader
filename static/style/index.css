@@ -74,6 +74,17 @@ p {
 	margin-top: 3rem;
 }
 
+/* for collapsable cards */
+.card-header .title {
+	margin: 0rem;
+}
+.title[data-toggle="collapse"]::before {
+	content: ' - ';
+}
+.title.collapsed[data-toggle="collapse"]::before {
+	content: ' + ';
+}
+
 .text-ps {
 	color: rgb(100, 100, 100);
 	font-size: 0.8em;
@@ -82,6 +93,12 @@ p {
 
 .text-dim {
 	color: #ccc;
+}
+
+/*--- MD intro ---*/
+.md-intro-content {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
 }
 
 /*-- input form --*/

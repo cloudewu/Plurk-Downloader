@@ -63,11 +63,15 @@ def root():
 def index():
     return render_template('index.html')
 
-@app.route('/download')
+@app.route('/download', methods=['POST'])
 def download():
-	query = request.args.get('content')
-	encodeURI = 'data:text/plain;charset=UTF-8,' + urllib.parse.quote(query)
-	return render_template('download.html', content=query, link=encodeURI)
+	if request.method == 'GET':
+		return "Currently not allowed"
+	elif request.method == 'POST':
+		content = request.form['content']
+		query = urllib.parse.unquote(content)
+		encodeURI = 'data:text/plain;charset=UTF-8,' + query
+		return render_template('download.html', content=query, link=encodeURI)
 
 def parse_arg():
     # [Note] If you modify the default value here, please update Dockerfile at the same time #

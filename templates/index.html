@@ -29,7 +29,7 @@
 	<a class="nav-item nav-link py-1" href="#">關於我們</a>
 {% endblock %}
 
-{% block content %} 
+{% block content %}
 	<div class="container content-body">
 		<div class="position-fixed d-none" id="alert">
 			<div class="alert alert-success">alert.</div>
@@ -81,58 +81,75 @@
 				<p>由於噗浪的網頁的特殊性，一般的網頁閱讀工具通常無法完整地抓取所有留言以供閱讀與備份，若要將整則噗完整截圖、或者直接將網頁原始檔下載下來進行保存，又容易產生多個檔案不易整理，亦相當占空間。</p>
 				<p>在噗文轉存器中，我們提供使用者一個輕便的噗文儲存方式，只要貼上該噗網址，我們就會將內容及留言擷取下來，轉換為純文字格式供使用者進行閱讀與儲存，由於是純文字，轉換後的txt檔不會站太大空間（經過實測，2000則留言的噗文下載後僅需要490KB！），所以無論是作為備份亦或攜帶都十分方便。</p>
 			</div>
-			<div>
-				<h4 class="title">功能介紹</h4>
-				<ul>
-					<li>在上方的輸入欄貼上噗文網址，點擊送出後，即可在彈出頁面中檢視純文字結果，於下載頁面的右方點擊懸浮的 Download 按鈕即可進行下載。</li>
-					<li>目前<b>不支援</b>私噗抓取。</li>
-				</ul>
-			</div>
-			<div>
-				<h4 class="title">常見問題</h4>
-				<ul>
-					<li><b>圖片跟表符會被保存下來嗎？</b><br/>不會。因為我們希望做到的是輕量化純文字，所以圖片並不會一起被下載，也因此我們才能維持如此迷你易攜帶的檔案大小。<br/>不過，儘管圖片不會一起被下載，但圖片網址會被保存！若有需要，使用者可以透過網址查看圖片內容。</li>
-					<li><b>為什麼我點擊送出後顯示錯誤？</b><br/>可以檢查噗文網址是否正確，以及未登入者是否有權限存取。目前需要登入才能查看的噗是不支援轉存的，比如私噗與私人河道上的噗。<br/>若您很確定網址正確且並非私噗，希望您能協助填寫問題回報，十分感謝！</li>
-					<li><b>我送出後顯示成功，但什麼都沒出現。</b><br/>轉存結果預設會以新分頁開啟，若未出現可能是瀏覽器攔截了彈出視窗，請手動點擊輸入欄下的連結即可。</li>
-					<li><b>我遇到了未知的問題，我懷疑你們網站有Bug。</b><br/><span class="text-dim">No. It's not a bug; it's a feature.</span><br/>開玩笑的，很抱歉讓您有不愉快的體驗，但人生就是這樣，總會碰上些莫可奈何——若您願意花費一點時間幫我們填寫問題回報，我們會十分感激。</li>
-				</ul>
-			</div>
-			<div>
-				<h4 class="title">展示</h4>
-				<p>轉換後的純文字結果，以及利用HackMD進行轉譯後的結果如下：</p>
-				<div class="row justify-content-center" id="result-preview-box">
-					<div class="col col-5" id="result-preview-1" style="border:solid; height:300px;">plurk-md-raw</div>
-					<div class="col-auto"></div>
-					<div class="col col-5" id="result-preview-2" style="border:solid; height:300px;">plurk-md-rendered</div>
+			<div class="accordion">
+				<div class="card">
+					<div class="card-header">
+						<h4 class="title collapsed" data-toggle="collapse" data-target="#intro-usage" aria-expanded="false" aria-controls="intro-usage">功能介紹</h4>
+					</div>
+					<div class="card-body collapse" id="intro-usage">
+						<ul>
+							<li>在上方的輸入欄貼上噗文網址，點擊送出後，即可在彈出頁面中檢視純文字結果，於下載頁面的右方點擊懸浮的 Download 按鈕即可進行下載。</li>
+							<li>目前<b>不支援</b>私噗抓取。</li>
+						</ul>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header">
+						<h4 class="title collapsed" data-toggle="collapse" data-target="#intro-faq" aria-expanded="false" aria-controls="intro-faq">常見問題</h4>
+					</div>
+					<div class="card-body collapse" id="intro-faq">
+						<ul>
+							<li><b>圖片跟表符會被保存下來嗎？</b><br/>不會。因為我們希望做到的是輕量化純文字，所以圖片並不會一起被下載，也因此我們才能維持如此迷你易攜帶的檔案大小。<br/>不過，儘管圖片不會一起被下載，但圖片網址會被保存！若有需要，使用者可以透過網址查看圖片內容。</li>
+							<li><b>為什麼我點擊送出後顯示錯誤？</b><br/>可以檢查噗文網址是否正確，以及未登入者是否有權限存取。目前需要登入才能查看的噗是不支援轉存的，比如私噗與私人河道上的噗。<br/>若您很確定網址正確且並非私噗，希望您能協助填寫問題回報，十分感謝！</li>
+							<li><b>我送出後顯示成功，但什麼都沒出現。</b><br/>轉存結果預設會以新分頁開啟，若未出現可能是瀏覽器攔截了彈出視窗，請手動點擊輸入欄下的連結即可。</li>
+							<li><b>我遇到了未知的問題，我懷疑你們網站有Bug。</b><br/><span class="text-dim">No. It's not a bug; it's a feature.</span><br/>開玩笑的，很抱歉讓您有不愉快的體驗，但人生就是這樣，總會碰上些莫可奈何——若您願意花費一點時間幫我們填寫問題回報，我們會十分感激。</li>
+						</ul>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header">
+						<h4 class="title collapsed" data-toggle="collapse" data-target="#intro-demo" aria-expanded="false" aria-controls="intro-demo">展示</h4>
+					</div>
+					<div class="card-body collapse" id="intro-demo">
+						<p>轉換後的純文字結果，以及利用HackMD進行轉譯後的結果如下：</p>
+						<div class="row justify-content-center" id="result-preview-box">
+							<div class="col col-5" id="result-preview-1" style="border:solid; height:300px;">plurk-md-raw</div>
+							<div class="col-auto"></div>
+							<div class="col col-5" id="result-preview-2" style="border:solid; height:300px;">plurk-md-rendered</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 
 		<!-- Markdown introduction -->
-		<div class="content" id="md-intro">
-			<h3 class="title">什麼是Markdown？</h3>
-			<hr/>
-			<div class="intro">
-				<p><a href="https://markdown.tw/" target="_blank">Markdown</a>(縮寫為md)是一種輕量化的標記語言。</p>
-				<p>它的目的是使得純文字的檔案也能夠「易讀易寫」，並且可以輕易地轉換成一般HTML（網頁）格式來進行閱讀。</p>
-				<h4 class="title">什麼叫做易讀易寫？</h4>
-				<hr/>
-				<p>舉個例子，在Markdown中，我們會用「**粗體**」來代表「<strong>粗體</strong>」，用「*斜體*」來代表「<em>斜體</em>」。除此之外還有標題、清單、表格、引用……等等清晰好懂的格式，讓文件就算以純文字寫成，也可以有清晰易讀的排版。</p>
-				<p>也因為Markdown的易讀性，目前越來越多編輯平台都有支援類Markdown的編寫格式（有些僅部分支援），比如：</p>
-				<ul>
-					<li><a href="https://www.plurk.com/" target="_blank">Plurk</a>（類md語法）</li>
-					<li><a href="https://www.facebook.com" target="_blank">Facebook</a>（貼文支援部分Markdown格式）</li>
-					<li><a href="https://www.github.com/" target="_blank">Github</a>（README支援MD格式渲染）</li>
-				</ul>
-				<p>目前也有許多工具可以協助使用者編寫Markdown，並將MD格式以更易閱讀的HTML格式顯示。比如：</p>
-				<ul>
-					<li><a href="https://code.visualstudio.com/" target="_blank">VS Code</a>: 跨平台文字編輯器，除了內建Markdown預覽與編寫功能，亦有<a href="https://marketplace.visualstudio.com/search?term=markdown&target=VSCode" target="_blank">豐富擴充功能</a>可使用。</li>
-					<li><a href="https://typora.io/" target="_blank">Typora</a>: Mac上風評極佳的Markdown編輯器，主打「所見即所得」，目前windows版本也正在開發中。</li>
-					<li><a href="https://hackmd.io/" target="_blank">HackMD.io</a>: Markdown大型多人協作平台，只需要有瀏覽器即可使用，對於不想安裝其餘軟體的使用者來說是個非常棒的選擇。</li>
-				</ul>
-				<p>下方是我們將噗文轉換為Markdown格式，以及利用HackMD轉換為HTML後的預覽結果。</p>
+		<div class="content card" id="md-intro">
+			<div class="card-header">
+				<h3 class="title collapsed" data-toggle="collapse" data-target=".md-intro-content" aria-expanded="false" aria-controls="md-intro-content"> 什麼是Markdown？</h3>
 			</div>
-			<div class="row justify-content-center" id="md-preview-box">
+			<div class="md-intro-content collapse">
+				<div class="intro card-body">
+					<p><a href="https://markdown.tw/" target="_blank">Markdown</a>(縮寫為md)是一種輕量化的標記語言。</p>
+					<p>它的目的是使得純文字的檔案也能夠「易讀易寫」，並且可以輕易地轉換成一般HTML（網頁）格式來進行閱讀。</p>
+					<h4 class="title">什麼叫做易讀易寫？</h4>
+					<hr/>
+					<p>舉個例子，在Markdown中，我們會用「**粗體**」來代表「<strong>粗體</strong>」，用「*斜體*」來代表「<em>斜體</em>」。除此之外還有標題、清單、表格、引用……等等清晰好懂的格式，讓文件就算以純文字寫成，也可以有清晰易讀的排版。</p>
+					<p>也因為Markdown的易讀性，目前越來越多編輯平台都有支援類Markdown的編寫格式（有些僅部分支援），比如：</p>
+					<ul>
+						<li><a href="https://www.plurk.com/" target="_blank">Plurk</a>（類md語法）</li>
+						<li><a href="https://www.facebook.com" target="_blank">Facebook</a>（貼文支援部分Markdown格式）</li>
+						<li><a href="https://www.github.com/" target="_blank">Github</a>（README支援MD格式渲染）</li>
+					</ul>
+					<p>目前也有許多工具可以協助使用者編寫Markdown，並將MD格式以更易閱讀的HTML格式顯示。比如：</p>
+					<ul>
+						<li><a href="https://code.visualstudio.com/" target="_blank">VS Code</a>: 跨平台文字編輯器，除了內建Markdown預覽與編寫功能，亦有<a href="https://marketplace.visualstudio.com/search?term=markdown&target=VSCode" target="_blank">豐富擴充功能</a>可使用。</li>
+						<li><a href="https://typora.io/" target="_blank">Typora</a>: Mac上風評極佳的Markdown編輯器，主打「所見即所得」，目前windows版本也正在開發中。</li>
+						<li><a href="https://hackmd.io/" target="_blank">HackMD.io</a>: Markdown大型多人協作平台，只需要有瀏覽器即可使用，對於不想安裝其餘軟體的使用者來說是個非常棒的選擇。</li>
+					</ul>
+					<p>下方是我們將噗文轉換為Markdown格式，以及利用HackMD轉換為HTML後的預覽結果。</p>
+				</div>
+			</div>
+			<div class="md-intro-content collapse row justify-content-center" id="md-preview-box">
 				<div class="col col-5" id="md-preview-1" style="border:solid; height:300px;">image-md-raw</div>
 				<div class="col-auto"></div>
 				<div class="col col-5" id="md-preview-2" style="border:solid; height:300px;">image-md-rendered</div>
@@ -141,6 +158,11 @@
 
 		<!-- Place holder -->
 		<div class="placeholder-box"></div>
+
+		<!-- hidden form -->
+		<form id="download-request-form" method="POST" action="/download" target="_blank" class="hide">
+			<textarea id="download-content" type="hidden" name="content"></textarea>
+		</form>
 	</div>
 {% endblock %}
 

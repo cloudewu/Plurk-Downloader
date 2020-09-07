@@ -19,6 +19,11 @@ var properties =
 		ALERT_TIME: 2000		// how long the pop-up alert will fade out
 	};
 
+/**
+ * Show floating alert.
+ * @param {string} type - Boostrap type to choose alert color
+ * @param {string} message - message shown in alert bubble
+ */
 function ShowAlert(type, message)
 {
 	if(type!="primary" && type!="sencodary" && type!="success" && type!= "danger" && type!= "warning" && type!= "info" && type!= "lignt" && type!= "dark")
@@ -33,15 +38,15 @@ function ShowAlert(type, message)
 }
 
 /**
- * Update status pin-note content
- * @param iconClass: 
+ * Update pin-note status content.
+ * @param iconClass -  
  *        Classes list you want to assign to pin ('.pin' is loaded by default). Note that original classes will be discarded. 
  *        (passing null to preserve all old classes)
- * @param iconText: innerHTML you want to assign to pin
- * @param noteClass: 
+ * @param iconText - innerHTML you want to assign to pin
+ * @param noteClass - 
  *        Classes list you want to assign to pin ('.note' is loaded by default). Note that original classes will be discarded. 
  *        (assign null to preserve all old classes)
- * @param noteText: innerHTML you want to assign to note
+ * @param noteText - innerHTML you want to assign to note
  */
 function UpdateStatus(iconClass, iconText, noteClass, noteText)
 {
@@ -59,26 +64,47 @@ function UpdateStatus(iconClass, iconText, noteClass, noteText)
 
 /**
  * Handle processing errors and show in floating alert pop-up and status bar.
- * @param type: error type.
- * @param message: error message information (best provided for debug).
+ * @param retCode - error code that follows HTTP response format. (0 for client request error)
+ * @param message - error description.
  */
-function ErrorHandler(type, message) {
+function ErrorHandler(retCode, message) {
 	/* set alert */
 	ShowAlert("danger", "似乎出了點問題，晚點再試試！")
 	
-	switch(type){
-	case "RequestFail":
+	switch(retCode){
+	case 0:
+		/* request fail */
 		UpdateStatus(['badge', 'badge-danger'], "Fail", null, "請求失敗，請檢查連線，或者請稍後再試。");
+		console.error("Request Fail\n" + message);
 		break;
-	case "ProcessFail":
-		UpdateStatus(['badge', 'badge-danger'], "Fail", null, "解析失敗，請檢查噗文網址是否正確。");
+	case 403:
+		/* private plurk */
+		UpdateStatus(['badge', 'badge-danger'], "Fail", null, "存取失敗，請檢查該噗是否為私噗，或噗主是否有鎖河道。");
+		console.error("403\n" + message);
+		break;
+	case 404:
+		/* plurk not found */
+		UpdateStatus(['badge', 'badge-danger'], "Fail", null, "請求失敗，請噗文網址是否正確。");
+		console.error("404\n" + message);
+		break;
+	case 500:
+		/* internal server error */
+		UpdateStatus(['badge', 'badge-danger'], "Fail", null, "內部錯誤，請稍後再試。若多次出現，請協助填寫問題回報");
+		console.error("500\n" + message);
 		break;
 	default:
-		console.log("Unknow error.")
+		UpdateStatus(['badge', 'badge-danger'], retCode, null, "未知錯誤，請協助填寫問題回報。");
+		console.warn("Unknow error.");
+		console.error(retCode + "\n" + message);
 	}
-	console.log(message);
 	
 	submitBtnRestore();
+}
+
+/** Generate a fake form-submit event to send hidden POST request to server to show result in new tab */
+function openDownloadPage(content) {
+	$("#download-content").val(content);
+	$("#download-request-form").submit();
 }
 
 function GenerateDownloadLink(data) {
@@ -87,10 +113,11 @@ function GenerateDownloadLink(data) {
 	
 	content = encodeURIComponent(data['content']);
 	
-	UpdateStatus(['badge', 'badge-success'], "success", null, "若沒有顯示檔案，請點擊<a id=\"download-link\" target=\"_blank\">連結</a>手動開啟畫面。");
-	$("#download-link").attr("href", '/download?content=' + content);
-	window.open('/download?content=' + content, '_blank');
-	
+	UpdateStatus(['badge', 'badge-success'], "success", null, "若沒有顯示檔案，請點擊<a href=\"/download\" id=\"download-link\">連結</a>手動開啟畫面。");
+	console.log("openDownloadPage(\""+content+"\"); return false;");
+	$("#download-link").attr("onclick", "openDownloadPage(\""+content+"\"); return false;");
+
+	openDownloadPage(content);
 	submitBtnRestore();
 }
 
@@ -99,20 +126,19 @@ function RequestFail(e) {
 }
 
 function ProcessReturnData(data) {
-	/* check return data */
-	if(data['status_code']!=200){
-		ErrorHandler("ProcessFail", data['reason']);
-	}else{
+	var retCode = data['status_code'];
+	if(retCode==200){
 		GenerateDownloadLink(data);
+	}else{
+		ErrorHandler(retCode, data['reason']);
 	}
-
 }
 
 /**
- * send request to backend through ajax.
- * @param rqType: request type like "POST", "GET", etc.
- * @param rqUrl:  request destination.
- * @param rqData: request data.
+ * Send request to backend through ajax.
+ * @param rqType - request type like "POST", "GET", etc.
+ * @param rqUrl -  request destination.
+ * @param rqData - request data.
  */
 function RequestData(rqType, rqUrl, rqData) {
 	console.log("Requesting data...");
@@ -129,48 +155,51 @@ function RequestData(rqType, rqUrl, rqData) {
 	});
 }
 
+/**
+ * Sanitize and validate user input
+ * @param {string} input - plurk url
+ */
 function inputPrecheck(input) {
-	// strip string
+	/* strip string */
 	url = input.replace(/^\s+|\s+$/g, '');
-	console.log(url);
 	
-	// preclude invalid charactors
+	/* preclude invalid charactors */
 	let validChars = /^[\d|a-zA-Z:/.\/]+$/;
 	if(!validChars.test(url)) {
 		UpdateStatus(['badge', 'badge-danger'], "Error", null, "輸入不正確。請確保輸入不含非法符號，且輸入欄不可為空。");
 		return null;
 	}
 	
-	// deal with mobile url: 'plurk.com/m/p/xxxx' -> 'plurk.com/p/xxxx'
+	/* deal with mobile url: 'plurk.com/m/p/xxxx' -> 'plurk.com/p/xxxx' */
 	url = url.replace(/com\/m\/p/g, 'com/p');
-	console.log(url);
 	
-	// automatically append protocal: http/https
+	/* automatically append protocal: http/https */
 	if(!url.startsWith('http')) {
 		url = 'https://' + url;
-		console.log(url);
 	}
 	
-	// check url format
-	// valid format:
-	//   * http://www.plurk.com/p/xxxx
-	//   * https://www.plurk.com/p/xxxx
+	/** check url format
+	 * valid format:
+	 *   - http://www.plurk.com/p/xxxx
+	 *   - https://www.plurk.com/p/xxxx
+	 */
 	urlFormat = validFormat = /^((http|https):\/\/)?www.plurk.com\/p\/([\da-z]+)$/
 	if(!urlFormat.test(url)) {
 		UpdateStatus(['badge', 'badge-danger'], "Error", null, "網址格式不正確。請確保輸入網址為噗文網址。<br/>(www.plurk.com/p/...或www.plurk.com/m/p/...)");
 		return null;
 	}
 	
+	console.log("Processed url:" + url);
 	return url;
 }
 
-// restore submit button status and re-enable input again
+/** restore submit button status and re-enable input again */
 function submitBtnRestore() {
 	state.BTN_CLICKED = false;
 	elements.btnSubmit.removeClass("disabled");
 }
 
-function submitClick(event) {
+function urlRequestSubmit(event) {
 	if(!state.BTN_CLICKED){
 		state.BTN_CLICKED = true;
 		elements.btnSubmit.addClass("disabled");
@@ -206,7 +235,7 @@ function onload() {
 	elements.inputURL = $("#plurk-url");
 	
 	/* page ready, regist events respectively */
-	elements.btnSubmit.click(submitClick);
+	elements.btnSubmit.click(urlRequestSubmit);
 	elements.inputURL.keypress(keyEnterPress);
 	
 	/* setting */

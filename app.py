@@ -8,14 +8,18 @@ import urllib.parse
 
 import functions.crawl as function
 
-# import home  # home page rendering
+import home  # home page rendering
     
 ##################
 #                #
 #   API server   #
 #                #
 ##################
+
 app = Flask(__name__)
+# register blueprints
+app.register_blueprint(home.bp)
+
 
 # get clear txt by link
 @app.route('/backup',methods=['GET','POST'])
@@ -55,24 +59,6 @@ def after_request(response):
     response.headers.add('Access-Control-Allow-Headers', '*')
     return response
 
-@app.route('/')
-@app.route('/index')
-def root():
-    return render_template('index.html')
-
-def index():
-    return render_template('index.html')
-
-@app.route('/download', methods=['POST'])
-def download():
-	if request.method == 'GET':
-		return "Currently not allowed"
-	elif request.method == 'POST':
-		content = request.form['content']
-		query = urllib.parse.unquote(content)
-		encodeURI = 'data:text/plain;charset=UTF-8,' + query
-		return render_template('download.html', content=query, link=encodeURI)
-
 def parse_arg():
     # [Note] If you modify the default value here, please update Dockerfile at the same time #
     parser = argparse.ArgumentParser()
@@ -83,9 +69,6 @@ def parse_arg():
 if __name__ == '__main__':
     args = parse_arg()
     host, port = args.host, args.port
-    
-    # register blueprints
-    # app.register_blueprint(home.bp)
     
     app.run(host=host, port=port, debug=True)
     

@@ -15,6 +15,7 @@ import home  # home page rendering
 #                #
 ##################
 app = Flask(__name__)
+app.register_blueprint(home.bp)
 
 # get clear txt by link
 @app.route('/backup',methods=['GET','POST'])
@@ -66,7 +67,6 @@ if __name__ == '__main__':
     host, port = args.host, args.port
     
     # register blueprints
-    app.register_blueprint(home.bp)
     
     app.run(host=host, port=port, debug=True)
     

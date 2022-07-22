@@ -32,7 +32,7 @@ def get_plurk(plurk: PlurkRequest) -> PlurkContent:
         }
     )
     if not ret:
-        error = plurk.error()
+        error = plurk_api.error()
         logger.warning(f'failed to get plurk content: {error["content"]!r}')
         raise HTTPException(status_code=error['code'], detail=error['reason'])
     logger.info(f'got {plurk.id}')
@@ -79,11 +79,12 @@ def get_response(plurk: PlurkContent) -> PlurkContent:
         }
     )
     if not ret:
-        error = plurk.error()
+        error = plurk_api.error()
         logger.warning(f'failed to get plurk responses: {error["content"]!r}')
         raise HTTPException(status_code=error['code'], detail=error['reason'])
     logger.info(f'got responses of {plurk.id}')
 
+    # dict.get() is used to handle the unstable return-format
     # TODO: seperate entity translation as a utility module
     response_list = []
     for response in ret['responses']:
@@ -95,14 +96,15 @@ def get_response(plurk: PlurkContent) -> PlurkContent:
         )
         response = PlurkResponse(
             plurk_id=plurk.id,
-            id=response['id'],
+            id=response.get('id'),
             owner=owner,
-            post_time=response['posted'],
-            last_edit_time=response['last_edited'],
-            lang=response['lang'],
-            qualifier=response['qualifier_translated'],
-            content=response['content'],
-            coins_count=response['coins'],
+            post_time=response.get('posted'),
+            last_edit_time=response.get('last_edited'),
+            lang=response.get('lang'),
+            qualifier=response.get('qualifier_translated'),
+            content=response.get('content'),
+            content_raw=response.get('content_raw'),
+            coins_count=response.get('coins'),
         )
         response_list.append(response)
 

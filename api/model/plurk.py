@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 
 class PlurkRequest(BaseModel):
-    id: Optional[str]
+    id: str
 
 
 class PlurkUser(BaseModel):

@@ -5,7 +5,8 @@ from plurk_oauth import PlurkAPI
 
 from application.form import ExtractRequest
 from config import Config
-from domain.plurk.entity import PlurkContent, PlurkResponse, PlurkUser
+from domain.plurk.entity import PlurkContent, PlurkUser
+from domain.plurk.mapper import response_list_mapper
 
 
 config = Config()
@@ -83,31 +84,8 @@ def get_response(plurk: PlurkContent) -> PlurkContent:
         error = plurk_api.error()
         logger.warning(f'failed to get plurk responses: {error["content"]!r}')
         raise HTTPException(status_code=error['code'], detail=error['reason'])
+
     logger.info(f'got responses of {plurk.id}')
+    plurk.responses = response_list_mapper(plurk.id, ret)
 
-    # dict.get() is used to handle the unstable return-format
-    # TODO: seperate entity translation as a utility module
-    response_list = []
-    for response in ret['responses']:
-        user_data = ret['friends'].get(str(response['user_id']))
-        owner = PlurkUser(
-            id=user_data['id'],
-            display_name=user_data['display_name'],
-            nickname=user_data['nick_name']
-        )
-        response = PlurkResponse(
-            plurk_id=plurk.id,
-            id=response.get('id'),
-            owner=owner,
-            post_time=response.get('posted'),
-            last_edit_time=response.get('last_edited'),
-            lang=response.get('lang'),
-            qualifier=response.get('qualifier_translated'),
-            content=response.get('content'),
-            content_raw=response.get('content_raw'),
-            coins_count=response.get('coins'),
-        )
-        response_list.append(response)
-
-    plurk.responses = response_list
     return plurk

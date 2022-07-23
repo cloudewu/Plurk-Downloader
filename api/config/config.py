@@ -10,4 +10,4 @@ class Config(BaseSettings):
     PLURK_ACCESS_SECRET: str
 
     class Config:
-        secrets_dir = os.path.join('config', 'secrets')
+        secrets_dir = os.path.join('api', 'config', 'secrets')

@@ -1,6 +1,6 @@
 from typing import Dict, List
 
-from domain.plurk.entity import PlurkContent, PlurkResponse, PlurkUser
+from ..entity import PlurkContent, PlurkResponse, PlurkUser
 
 
 def user_mapper(user: Dict) -> PlurkUser:

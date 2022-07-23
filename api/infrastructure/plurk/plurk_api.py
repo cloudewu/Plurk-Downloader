@@ -3,10 +3,10 @@ import logging
 from fastapi import HTTPException
 from plurk_oauth import PlurkAPI
 
-from application.form import ExtractRequest
-from config import Config
-from domain.plurk.entity import PlurkContent
-from domain.plurk.mapper import content_mapper, response_list_mapper
+from ...application.form import ExtractRequest
+from ...config import Config
+from ...domain.plurk.entity import PlurkContent
+from ...domain.plurk.mapper import content_mapper, response_list_mapper
 
 
 config = Config()

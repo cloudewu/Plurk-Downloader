@@ -1,1 +1,1 @@
-from .extract_request import ExtractRequest
+from .extract_request import RequestRaw, ExtractRequest

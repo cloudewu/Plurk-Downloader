@@ -3,8 +3,9 @@ import logging
 from fastapi import HTTPException
 from plurk_oauth import PlurkAPI
 
+from application.form import ExtractRequest
 from config import Config
-from model.plurk import PlurkRequest, PlurkContent, PlurkResponse, PlurkUser
+from domain.plurk.entity import PlurkContent, PlurkResponse, PlurkUser
 
 
 config = Config()
@@ -17,13 +18,13 @@ plurk_api = PlurkAPI(
 logger = logging.getLogger('PlurkAPI')
 
 
-def get_plurk(plurk: PlurkRequest) -> PlurkContent:
-    logger.info(f'trying to get plurk: {plurk.id}')
+def get_plurk(request: ExtractRequest) -> PlurkContent:
+    logger.info(f'trying to get plurk: {request.plurk_id}')
 
     ret = plurk_api.callAPI(
         '/APP/Timeline/getPlurk',
         options={
-            'plurk_id': plurk.id,
+            'plurk_id': request.plurk_id,
             'favorers_detail': False,
             'limited_detail': False,
             'replurkers_detail': False,
@@ -35,7 +36,7 @@ def get_plurk(plurk: PlurkRequest) -> PlurkContent:
         error = plurk_api.error()
         logger.warning(f'failed to get plurk content: {error["content"]!r}')
         raise HTTPException(status_code=error['code'], detail=error['reason'])
-    logger.info(f'got {plurk.id}')
+    logger.info(f'got {request.plurk_id}')
 
     # TODO: seperate entity translation as a utility module
     user_data = ret['user']

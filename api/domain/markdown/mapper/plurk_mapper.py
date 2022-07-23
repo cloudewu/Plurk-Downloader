@@ -37,8 +37,6 @@ def gen_markdown_from_plurk(plurk: PlurkContent) -> PlurkMD:
 
     doc.add_horizontal_rule()
 
-    print(doc.render())
-
     responses = list(starmap(gen_response_md_from_plurk_response, enumerate(plurk.responses, start=1)))
 
     return PlurkMD(
@@ -70,8 +68,6 @@ def gen_response_md_from_plurk_response(idx: int, response: PlurkResponse) -> Pl
     doc.add_element(Paragraph(time_info))
 
     doc.add_horizontal_rule()
-
-    print(doc.render())
 
     return PlurkResponseMD(
         id=response.id,

@@ -5,8 +5,8 @@ from plurk_oauth import PlurkAPI
 
 from application.form import ExtractRequest
 from config import Config
-from domain.plurk.entity import PlurkContent, PlurkUser
-from domain.plurk.mapper import response_list_mapper
+from domain.plurk.entity import PlurkContent
+from domain.plurk.mapper import content_mapper, response_list_mapper
 
 
 config = Config()
@@ -35,35 +35,12 @@ def get_plurk(request: ExtractRequest) -> PlurkContent:
     )
     if not ret:
         error = plurk_api.error()
-        logger.warning(f'failed to get plurk content: {error["content"]!r}')
+        logger.warning(f"failed to get plurk content: {error['content']!r}")
         raise HTTPException(status_code=error['code'], detail=error['reason'])
-    logger.info(f'got {request.plurk_id}')
 
-    # TODO: seperate entity translation as a utility module
-    user_data = ret['user']
-    owner = PlurkUser(
-        id=user_data['id'],
-        display_name=user_data['display_name'],
-        nickname=user_data['nick_name']
-    )
-    plurk_data = ret['plurk']
-    plurk = PlurkContent(
-        owner=owner,
-        id=plurk_data['plurk_id'],
-        post_time=plurk_data['posted'],
-        last_edit_time=plurk_data['last_edited'],
-        lang=plurk_data['lang'],
-        qualifier=plurk_data['qualifier_translated'],
-        content=plurk_data['content'],
-        content_raw=plurk_data['content_raw'],
-        plurk_type=plurk_data['plurk_type'],
-        anonymous=plurk_data['anonymous'],
-        porn=plurk_data['porn'],
-        coins_count=plurk_data['coins'],
-        favorites_count=plurk_data['favorite_count'],
-        replurkers_count=plurk_data['replurkers_count'],
-        responses_count=plurk_data['response_count'],
-    )
+    logger.info(f'got {request.plurk_id}')
+    plurk = content_mapper(ret)
+
     return plurk
 
 
@@ -82,7 +59,7 @@ def get_response(plurk: PlurkContent) -> PlurkContent:
     )
     if not ret:
         error = plurk_api.error()
-        logger.warning(f'failed to get plurk responses: {error["content"]!r}')
+        logger.warning(f"failed to get plurk responses: {error['content']!r}")
         raise HTTPException(status_code=error['code'], detail=error['reason'])
 
     logger.info(f'got responses of {plurk.id}')

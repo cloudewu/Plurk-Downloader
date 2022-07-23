@@ -11,8 +11,28 @@ def user_mapper(user: Dict) -> PlurkUser:
     )
 
 
-def content_mapper(plurk: Dict) -> PlurkContent:
-    ...
+def content_mapper(plurk_data: Dict) -> PlurkContent:
+    owner = user_mapper(plurk_data['user'])
+    plurk = plurk_data['plurk']
+
+    # dict.get() is used to handle optional return fields
+    return PlurkContent(
+        owner=owner,
+        id=plurk.get('plurk_id'),
+        post_time=plurk.get('posted'),
+        last_edit_time=plurk.get('last_edited'),
+        lang=plurk.get('lang'),
+        qualifier=plurk.get('qualifier_translated'),
+        content=plurk.get('content'),
+        content_raw=plurk.get('content_raw'),
+        plurk_type=plurk.get('plurk_type'),
+        anonymous=plurk.get('anonymous'),
+        porn=plurk.get('porn'),
+        coins_count=plurk.get('coins'),
+        favorites_count=plurk.get('favorite_count'),
+        replurkers_count=plurk.get('replurkers_count'),
+        responses_count=plurk.get('response_count'),
+    )
 
 
 def response_list_mapper(plurk_id: str, responses: List[Dict]) -> List[PlurkResponse]:

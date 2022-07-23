@@ -175,6 +175,14 @@ socks = ["PySocks (>=1.5.6,!=1.5.7)"]
 use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
+name = "snakemd"
+version = "0.10.1"
+description = "A markdown generation library for Python."
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[[package]]
 name = "sniffio"
 version = "1.2.0"
 description = "Sniff out which async library your code is running under"
@@ -236,7 +244,7 @@ standard = ["websockets (>=10.0)", "httptools (>=0.4.0)", "watchfiles (>=0.13)",
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "95dd9ac1675829be68ffe362a0d2b574b89c9d0cf0c2e3cb1a1072ebe0dd9305"
+content-hash = "d679baa84051e813af936b6af777174493088fad918901473503b39986cd816f"
 
 [metadata.files]
 anyio = []
@@ -260,6 +268,7 @@ plurk-oauth = []
 pydantic = []
 pyparsing = []
 requests = []
+snakemd = []
 sniffio = []
 starlette = []
 typing-extensions = []

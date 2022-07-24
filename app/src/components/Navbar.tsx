@@ -17,16 +17,23 @@ function NavLink({ text, href }: NavItemProps) {
   );
 }
 
-type NavItemType = {
-  type: 'link' | 'divider';
-  text?: string;
-  href?: string;
+type NavDividerType = {
+  type: 'divider';
+  id: string;
 }
+
+type NavLinkType = {
+  type: 'link';
+  text: string;
+  href: string;
+}
+
+type NavItemType = NavDividerType | NavLinkType;
 
 function Navbar() {
   const navItems: NavItemType[] = [
     { type: 'link', text: '噗文轉存器', href: '/' },
-    { type: 'divider' },
+    { type: 'divider', id: 'divider-1' },
     { type: 'link', text: '首頁', href: '/' },
     { type: 'link', text: '關於我們', href: '/about' },
   ];
@@ -40,10 +47,11 @@ function Navbar() {
         alt="The favicon of this app"
         className="inline-block"
       />
-      { navItems.map(({ type, text, href }) => {
-        if (type === 'divider') {
-          return <VDivider />;
+      { navItems.map((item) => {
+        if (item.type === 'divider') {
+          return <VDivider key={item.id} />;
         }
+        const { text, href } = item;
 
         return <NavLink text={text} href={href} key={`nav-${text}`} />;
       })}

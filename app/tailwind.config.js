@@ -5,7 +5,11 @@ module.exports = {
     '**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#FF574D', // official Plurk color
+      },
+    },
   },
   plugins: [],
-}
+};

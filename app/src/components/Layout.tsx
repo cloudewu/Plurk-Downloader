@@ -1,8 +1,9 @@
-import * as React from 'react';
+import { PropsWithChildren } from 'react';
 
 import Navbar from './Navbar';
+import Footer from './Footer';
 
-function Layout(props: React.PropsWithChildren) {
+function Layout(props: PropsWithChildren) {
   const { children } = props;
 
   return (
@@ -11,6 +12,7 @@ function Layout(props: React.PropsWithChildren) {
       <main>
         { children }
       </main>
+      <Footer />
     </>
   );
 }

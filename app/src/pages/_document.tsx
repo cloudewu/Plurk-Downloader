@@ -13,7 +13,7 @@ function Document() {
         <link rel="shortcut icon" href="/img/favicon.ico" />
       </Head>
 
-      <body>
+      <body className="min-h-screen">
         <Main />
         <NextScript />
       </body>

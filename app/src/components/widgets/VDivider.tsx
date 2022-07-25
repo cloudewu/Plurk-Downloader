@@ -4,9 +4,9 @@ type Props = {
 
 function VDivider({ className }: Props) {
   return (
-    <div className={`inline-block px-1 ${className}`}>
+    <span className={`inline-block px-1 ${className}`}>
       |
-    </div>
+    </span>
   );
 }
 

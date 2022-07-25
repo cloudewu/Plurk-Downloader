@@ -9,6 +9,12 @@ module.exports = {
       colors: {
         primary: '#FF574D', // official Plurk color
       },
+      maxHeight: {
+        unreachable: '100rem',
+      },
+      transitionProperty: {
+        'max-h': 'max-height',
+      },
     },
   },
   plugins: [],

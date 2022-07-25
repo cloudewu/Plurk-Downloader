@@ -39,7 +39,7 @@ function Navbar() {
   ];
 
   return (
-    <nav className="bg-primary sticky top-0 w-full p-1">
+    <nav className="bg-primary sticky top-0 w-full p-1 z-40">
       <Image
         src="/img/favicon_white.png"
         width="15px"

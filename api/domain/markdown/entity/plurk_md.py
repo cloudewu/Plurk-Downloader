@@ -5,6 +5,10 @@ from .plurk_response_md import PlurkResponseMD
 
 
 class PlurkMD(BaseModel):
-    plurk_id: str
+    plurk_b36id: str
+    plurk_url: str
+    plurker: str
     content: str
-    responses: Optional[List[PlurkResponseMD]]
+    responses: List[PlurkResponseMD]
+    footer: str
+    timestamp: str

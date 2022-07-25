@@ -1,7 +1,7 @@
 from typing import Dict, List
 
 from ..entity import PlurkContent, PlurkResponse, PlurkUser
-
+from ....infrastructure.coder import b36_encode
 
 def user_mapper(user: Dict) -> PlurkUser:
     return PlurkUser(
@@ -16,9 +16,11 @@ def content_mapper(plurk_data: Dict) -> PlurkContent:
     plurk = plurk_data['plurk']
 
     # dict.get() is used to handle optional return fields
+    pid = plurk.get('plurk_id')
     return PlurkContent(
         owner=owner,
-        id=plurk.get('plurk_id'),
+        id=pid,
+        b36id=b36_encode(pid),
         post_time=plurk.get('posted'),
         last_edit_time=plurk.get('last_edited'),
         lang=plurk.get('lang'),

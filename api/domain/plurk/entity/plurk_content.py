@@ -5,6 +5,7 @@ from .plurk_response import PlurkResponse
 
 
 class PlurkContent(PlurkMessage):
+    b36id: str
     plurk_type: int
     anonymous: bool
     porn: bool

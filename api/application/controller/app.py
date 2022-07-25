@@ -3,13 +3,16 @@ import re
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from itertools import chain
+from operator import attrgetter
 
 from ..form import ExtractRequest
+from ..representator.MDResponse import MDResponse
 from ...config import Config
 from ...domain.markdown.mapper import gen_markdown_from_plurk
-from ...domain.markdown.entity import PlurkMD
 from ...infrastructure.coder import is_b36_str
 from ...infrastructure.plurk.plurk_api import get_plurk, get_response
+
 
 config = Config()
 app = FastAPI()
@@ -28,7 +31,7 @@ def index():
     return 'OK'
 
 
-@app.get('/markdown')
+@app.get('/markdown', response_model=MDResponse)
 def get_markdown(q: str):
     logger.info(f'got request: {q}')
 
@@ -51,5 +54,11 @@ def get_markdown(q: str):
     p = get_plurk(rq)
     p = get_response(p)
     md = gen_markdown_from_plurk(p)
+    title = f'{md.plurker} - {md.plurk_b36id}'
 
-    return md.content
+    response = MDResponse(
+        title=f"{title}_{md.timestamp.replace(':', '')}",
+        content='\n'.join(chain([f'# {title}', '', md.content], map(attrgetter('content'), md.responses), [md.footer]))
+    )
+
+    return response

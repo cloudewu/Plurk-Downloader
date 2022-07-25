@@ -1,15 +1,23 @@
 import { FormEvent, useState } from 'react';
 
-import { callAPI } from '../../lib/api';
+import { callAPI } from '../../utils/api';
 
 function InputForm() {
-  const [inputPlurkInfo, setInputPlurkInfo] = useState('');
+  const [inputPlurkInfo, setInputPlurkInfo] = useState<string>('');
+  const [result, setResult] = useState<string>('');
 
   function onFormSubmit(e: FormEvent) {
     e.preventDefault();
     // TODO: add input validation
     if (inputPlurkInfo) {
-      callAPI(inputPlurkInfo);
+      callAPI(inputPlurkInfo)
+        .then((response) => {
+          if (response.success === true) {
+            setResult(response.response);
+          } else {
+            setResult(response.reason);
+          }
+        });
     }
   }
 
@@ -33,6 +41,10 @@ function InputForm() {
             送出
           </button>
         </div>
+        {
+          // TODO: generate a file download
+          result ? <div>{ result }</div> : <div>Requst First!</div>
+        }
       </form>
     </div>
   );

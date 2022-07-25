@@ -1,16 +1,20 @@
-import * as React from 'react';
+import { FormEvent, useCallback, useState } from 'react';
+import fileDownload from 'js-file-download';
 
+import Card from '../components/Card';
 import CollapsibleSection from '../components/CollapsibleSection';
-import InputForm from '../components/home/InputForm';
+import DownloadButton from '../components/widgets/DownloadButton';
 import Layout from '../components/Layout';
 import Section from '../components/Section';
 import SubSection from '../components/SubSection';
+
+import { MDInfo, callAPI } from '../utils/api';
 
 function HomePage() {
   return (
     <Layout title="首頁 - 噗文轉存器">
       <SectionWelcome />
-      <InputForm />
+      <SubmitForm />
       <SectionIntro />
       <SectionFeature />
       <SectionFAQ />
@@ -47,6 +51,74 @@ function SectionMDTips() {
         等工具增進閱讀體驗！
       </p>
     </div>
+  );
+}
+
+type QueryStatus = 'idle' | 'pending' | 'success' | 'error';
+
+function SubmitForm() {
+  const [inputPlurkInfo, setInputPlurkInfo] = useState<string>('');
+  const [status, setStatus] = useState<QueryStatus>('idle');
+  const [result, setResult] = useState<MDInfo>(null);
+
+  const onFormSubmit = useCallback((e: FormEvent) => {
+    e.preventDefault();
+    // TODO: add input validation
+    if (!inputPlurkInfo) return;
+
+    setStatus('pending');
+    callAPI(inputPlurkInfo)
+      .then((res) => {
+        if (res.success === true) {
+          const { data } = res;
+
+          setStatus('success');
+          setResult(data);
+          fileDownload(data.content, `${data.title}.md`);
+        } else {
+          setStatus('error');
+          setResult(res.reason);
+        }
+      });
+  }, [inputPlurkInfo, setStatus, setResult]);
+
+  return (
+    <Card className="my-4">
+      <div>
+        <p>在下方輸入噗文網址或 ID，並點擊送出：</p>
+      </div>
+      <form
+        className="my-4"
+        action="/markdown"
+        onSubmit={onFormSubmit}
+      >
+        <div className="flex w-full">
+          <input
+            className={'flex-auto px-4 py-1 border border-gray-300 rounded-l-full border-r-0 '
+                       + 'bg-transparent outline-none focus:outline-none'}
+            type="text"
+            placeholder="https://www.plurk.com/p/xxxxx"
+            value={inputPlurkInfo}
+            onChange={(e) => setInputPlurkInfo(e.target.value)}
+          />
+          <button
+            className={'flex-initial px-2 border border-primary rounded-r-full '
+                       + 'bg-primary text-sm text-white'}
+            type="submit"
+          >
+            送出
+          </button>
+        </div>
+      </form>
+      {
+        /* eslint-disable no-nested-ternary */
+        // TODO: refactor
+        status === 'pending' ? <p>Requesting...</p>
+          : status === 'success' ? <DownloadButton filename={`${result.title}.md`} content={result.content} />
+            : status === 'error' ? <p>Request failed</p>
+              : null
+      }
+    </Card>
   );
 }
 

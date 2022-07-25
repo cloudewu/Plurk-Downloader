@@ -47,6 +47,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react", "virtual:42f59124ac5044f7c6ee56e6f788ec18030eca98e04752dde8b55b237f9e09768a9e1b6d9a6c3dfaf8b8293f911b7f75c3b3efff85f1ef6e43e05ec5443c9d6e#npm:7.30.1"],\
             ["eslint-plugin-react-hooks", "virtual:42f59124ac5044f7c6ee56e6f788ec18030eca98e04752dde8b55b237f9e09768a9e1b6d9a6c3dfaf8b8293f911b7f75c3b3efff85f1ef6e43e05ec5443c9d6e#npm:4.6.0"],\
             ["husky", "npm:8.0.1"],\
+            ["js-file-download", "npm:0.4.12"],\
             ["lint-staged", "npm:12.5.0"],\
             ["next", "virtual:42f59124ac5044f7c6ee56e6f788ec18030eca98e04752dde8b55b237f9e09768a9e1b6d9a6c3dfaf8b8293f911b7f75c3b3efff85f1ef6e43e05ec5443c9d6e#npm:12.2.3"],\
             ["postcss", "npm:8.4.14"],\
@@ -2816,6 +2817,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["js-file-download", [\
+        ["npm:0.4.12", {\
+          "packageLocation": "./.yarn/cache/js-file-download-npm-0.4.12-60d6f838a7-a03847eef0.zip/node_modules/js-file-download/",\
+          "packageDependencies": [\
+            ["js-file-download", "npm:0.4.12"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["js-tokens", [\
         ["npm:4.0.0", {\
           "packageLocation": "./.yarn/cache/js-tokens-npm-4.0.0-0ac852e9e2-8a95213a5a.zip/node_modules/js-tokens/",\
@@ -3672,6 +3682,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react", "virtual:42f59124ac5044f7c6ee56e6f788ec18030eca98e04752dde8b55b237f9e09768a9e1b6d9a6c3dfaf8b8293f911b7f75c3b3efff85f1ef6e43e05ec5443c9d6e#npm:7.30.1"],\
             ["eslint-plugin-react-hooks", "virtual:42f59124ac5044f7c6ee56e6f788ec18030eca98e04752dde8b55b237f9e09768a9e1b6d9a6c3dfaf8b8293f911b7f75c3b3efff85f1ef6e43e05ec5443c9d6e#npm:4.6.0"],\
             ["husky", "npm:8.0.1"],\
+            ["js-file-download", "npm:0.4.12"],\
             ["lint-staged", "npm:12.5.0"],\
             ["next", "virtual:42f59124ac5044f7c6ee56e6f788ec18030eca98e04752dde8b55b237f9e09768a9e1b6d9a6c3dfaf8b8293f911b7f75c3b3efff85f1ef6e43e05ec5443c9d6e#npm:12.2.3"],\
             ["postcss", "npm:8.4.14"],\

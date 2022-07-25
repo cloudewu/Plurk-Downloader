@@ -1,9 +1,14 @@
 const API_PATH = process.env.NEXT_PUBLIC_API_PATH;
 
+export type MDInfo = {
+  title: string;
+  content: string;
+}
+
 type APIRequest = string;
 type APISuccess = {
   success: true;
-  response: string;
+  data: MDInfo;
 }
 type APIFailure = {
   success: false;
@@ -21,7 +26,7 @@ export async function callAPI(request: APIRequest) {
     if (res.ok) {
       response = {
         success: true,
-        response: await res.text(),
+        data: await res.json(),
       };
     } else {
       response = {

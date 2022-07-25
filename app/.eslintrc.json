@@ -15,5 +15,16 @@
         "tsx": "never"
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["src/pages/**/*.tsx"],
+      "rules": {
+        "no-use-before-define": [
+          "error",
+          { "functions": false }
+        ]
+      }
+    }
+  ]
 }

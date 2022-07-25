@@ -2,16 +2,25 @@ import logging
 import re
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
 from ..form import ExtractRequest
+from ...config import Config
 from ...domain.markdown.mapper import gen_markdown_from_plurk
 from ...domain.markdown.entity import PlurkMD
 from ...infrastructure.coder import is_b36_str
 from ...infrastructure.plurk.plurk_api import get_plurk, get_response
 
-
+config = Config()
 app = FastAPI()
 logger = logging.getLogger('api')
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[config.APP_DOMAIN],
+    allow_credentials=True,
+    allow_methods=['GET']
+)
 
 
 @app.get('/', status_code=200)
@@ -19,7 +28,7 @@ def index():
     return 'OK'
 
 
-@app.get('/markdown', response_model=PlurkMD)
+@app.get('/markdown')
 def get_markdown(q: str):
     logger.info(f'got request: {q}')
 
@@ -43,4 +52,4 @@ def get_markdown(q: str):
     p = get_response(p)
     md = gen_markdown_from_plurk(p)
 
-    return md
+    return md.content

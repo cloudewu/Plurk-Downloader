@@ -1,5 +1,6 @@
 # secrets
 **/secrets/*
+!**/secrets/*.example
 
 # develope
 .vercel/
@@ -8,7 +9,7 @@
 **/*.tmp
 
 # Byte-compiled / optimized / DLL files
-__pycache__/
+**/__pycache__/
 *.py[cod]
 *$py.class
 
@@ -111,6 +112,3 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-
-# test file
-111.json

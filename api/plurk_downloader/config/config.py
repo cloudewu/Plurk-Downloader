@@ -11,5 +11,5 @@ class Config(BaseSettings):
     PLURK_ACCESS_SECRET: str
 
     class Config:
-        env_file = os.path.join('api', 'config', '.env')
-        secrets_dir = os.path.join('api', 'config', 'secrets')
+        env_file = os.path.join('plurk_downloader', 'config', '.env')
+        secrets_dir = os.path.join('plurk_downloader', 'config', 'secrets')

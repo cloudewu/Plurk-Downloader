@@ -1,30 +1,20 @@
-import Head from 'next/head';
 import * as React from 'react';
 
 import CollapsibleSection from '../components/CollapsibleSection';
 import InputForm from '../components/home/InputForm';
+import Layout from '../components/Layout';
 import Section from '../components/Section';
 import SubSection from '../components/SubSection';
 
 function HomePage() {
   return (
-    <>
-      <Head>
-        <title>首頁 - 噗文轉存器</title>
-      </Head>
-
-      <div className="mx-auto max-w-screen-md px-6">
-
-        <SectionWelcome />
-        <InputForm />
-        <SectionIntro />
-        <SectionFeature />
-        <SectionFAQ />
-
-      </div>
-
-      <div className="h-24" />
-    </>
+    <Layout title="首頁 - 噗文轉存器">
+      <SectionWelcome />
+      <InputForm />
+      <SectionIntro />
+      <SectionFeature />
+      <SectionFAQ />
+    </Layout>
   );
 }
 

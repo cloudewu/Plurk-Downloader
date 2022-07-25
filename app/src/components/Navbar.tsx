@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+
 import VDivider from './widgets/VDivider';
 
 type NavItemProps = {
@@ -39,7 +40,7 @@ function Navbar() {
   ];
 
   return (
-    <nav className="bg-primary sticky top-0 w-full p-1 z-40">
+    <nav className="sticky top-0 w-full p-1 z-40 bg-primary">
       <Image
         src="/img/favicon_white.png"
         width="15px"
@@ -49,7 +50,7 @@ function Navbar() {
       />
       { navItems.map((item) => {
         if (item.type === 'divider') {
-          return <VDivider key={item.id} />;
+          return <VDivider className="text-white/25" key={item.id} />;
         }
         const { text, href } = item;
 

@@ -4,7 +4,7 @@ type Props = {
 
 function VDivider({ className }: Props) {
   return (
-    <div className={`inline-block px-1 text-white/25 ${className}`}>
+    <div className={`inline-block px-1 ${className}`}>
       |
     </div>
   );

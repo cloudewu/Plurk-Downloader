@@ -1,5 +1,3 @@
-const API_PATH = process.env.NEXT_PUBLIC_API_PATH;
-
 export type MDInfo = {
   title: string;
   content: string;
@@ -17,7 +15,7 @@ type APIFailure = {
 type APIResponse = APISuccess | APIFailure;
 
 export async function callAPI(request: APIRequest) {
-  const url = `${API_PATH}/markdown?q=${encodeURIComponent(request)}`;
+  const url = `/api/markdown?q=${encodeURIComponent(request)}`;
 
   let response: APIResponse;
   // TODO: refactor

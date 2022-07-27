@@ -1,0 +1,1 @@
+from .plurk_mapper import gen_markdown_from_plurk

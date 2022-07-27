@@ -1,9 +1,16 @@
+# secrets
+**/secrets/*
+!**/secrets/*.example
+**/.env*
+
 # develope
 .vercel/
 .vscode/
+**/*.backup
+**/*.tmp
 
 # Byte-compiled / optimized / DLL files
-__pycache__/
+**/__pycache__/
 *.py[cod]
 *$py.class
 
@@ -86,8 +93,8 @@ celerybeat-schedule
 *.sage.py
 
 # Environments
-.env
-.venv
+.env/
+.venv/
 env/
 venv/
 ENV/
@@ -106,6 +113,3 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-
-# test file
-111.json

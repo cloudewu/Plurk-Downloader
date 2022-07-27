@@ -1,0 +1,44 @@
+{
+  "name": "plurk-downloader-frontend",
+  "private": true,
+  "packageManager": "yarn@3.2.2",
+  "scripts": {
+    "postinstall": "cd .. && husky install app/.husky",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:staged": "lint-staged"
+  },
+  "dependencies": {
+    "js-file-download": "^0.4.12",
+    "next": "^12.2.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sharp": "^0.30.7"
+  },
+  "devDependencies": {
+    "@next/eslint-plugin-next": "^12.2.3",
+    "@types/node": "^18.0.6",
+    "@types/react": "^18.0.15",
+    "@types/sharp": "^0",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
+    "autoprefixer": "^10.4.7",
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb": "latest",
+    "eslint-config-next": "12.2.3",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^12.5.0",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.1.6",
+    "typescript": "^4.7.4"
+  },
+  "lint-staged": {
+    "!(.yarn/**/)*.{js,jsx,ts,tsx}": "eslint"
+  }
+}

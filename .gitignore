@@ -1,6 +1,7 @@
 # secrets
 **/secrets/*
 !**/secrets/*.example
+**/.env*
 
 # develope
 .vercel/

@@ -1,0 +1,5 @@
+fastapi
+plurk-oauth
+pydantic
+SnakeMD
+python-dotenv

@@ -4,7 +4,7 @@ from pydantic import BaseSettings
 
 
 class Config(BaseSettings):
-    APP_DOMAIN: str
+    APP_DOMAINS: list
     PLURK_API_KEY: str
     PLURK_API_SECRET: str
     PLURK_ACCESS_TOKEN: str

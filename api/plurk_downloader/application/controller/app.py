@@ -14,15 +14,15 @@ from ...infrastructure.coder import is_b36_str
 from ...infrastructure.plurk.plurk_api import get_plurk, get_response
 
 
+logger = logging.getLogger('api')
 config = Config()
 app = FastAPI()
-logger = logging.getLogger('api')
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[config.APP_DOMAIN],
+    allow_origins=config.APP_DOMAINS,
     allow_credentials=True,
-    allow_methods=['GET']
+    allow_methods=['*'],
+    allow_headers=['*'],
 )
 
 

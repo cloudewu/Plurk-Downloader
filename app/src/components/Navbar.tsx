@@ -36,7 +36,7 @@ function Navbar() {
     { type: 'link', text: '噗文轉存器', href: '/' },
     { type: 'divider', id: 'divider-1' },
     { type: 'link', text: '首頁', href: '/' },
-    { type: 'link', text: '關於我們', href: '/about' },
+    { type: 'link', text: 'Markdown', href: '/markdown' },
   ];
 
   return (

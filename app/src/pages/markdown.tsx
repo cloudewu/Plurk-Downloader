@@ -83,7 +83,6 @@ function EasyReadWrite() {
           </ul>
         </>
       )}
-      defaultCollapse={false}
     />
   );
 }
@@ -148,7 +147,6 @@ function CommonMD() {
           </tbody>
         </table>
       )}
-      defaultCollapse={false}
     />
   );
 }
@@ -164,7 +162,6 @@ function DemoSection() {
           <div className="flex-auto mx-2 border border-red-500 h-64" />
         </div>
       )}
-      defaultCollapse={false}
     />
   );
 }

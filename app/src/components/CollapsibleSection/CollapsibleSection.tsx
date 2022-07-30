@@ -34,7 +34,7 @@ function CollapsibleSection(props: Props) {
 
 CollapsibleSection.defaultProps = {
   className: '',
-  defaultCollapse: true,
+  defaultCollapse: false,
 };
 
 export default CollapsibleSection;

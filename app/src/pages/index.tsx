@@ -144,7 +144,6 @@ function SectionIntro() {
           </p>
         </>
       )}
-      defaultCollapse={false}
     />
   );
 }
@@ -166,7 +165,6 @@ function SectionFeature() {
           </p>
         </>
       )}
-      defaultCollapse={false}
     />
   );
 }
@@ -233,7 +231,6 @@ function SectionFAQ() {
           />
         </>
       )}
-      defaultCollapse={false}
     />
   );
 }

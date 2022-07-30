@@ -1,10 +1,15 @@
 root = true
 
 [*]
-end_of_line = lf
+charset = utf-8
+end_of_line = crlf
+trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.{js,json,yml}]
-charset = utf-8
+[*.{js,jsx,ts,tsx,json,yml}]
 indent_style = space
 indent_size = 2
+
+[*.py]
+indent_style = space
+indent_size = 4

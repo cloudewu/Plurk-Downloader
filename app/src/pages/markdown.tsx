@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 
 import CollapsibleSection from '../components/CollapsibleSection';
 import Layout from '../components/Layout';
+import { UnorderedList, ListItem } from '../components/List';
 import Section from '../components/Section';
 
 function MarkdownIntroPage() {
@@ -46,37 +47,37 @@ function EasyReadWrite() {
       </p>
       <p>除此之外還有標題、清單、表格、引用……等等清晰好懂的格式，讓文件就算以純文字寫成，也可以有清晰易讀的排版。</p>
       <p>也因為Markdown的易讀性，目前越來越多編輯平台都有支援類Markdown的編寫格式（有些僅部分支援），比如：</p>
-      <ul>
-        <li>
+      <UnorderedList>
+        <ListItem>
           <a href="https://plurk.com/" target="_blank" rel="noreferrer">噗浪 Plurk</a>
           （類 MD 語法）
-        </li>
-        <li>
+        </ListItem>
+        <ListItem>
           <a href="https://facebook.com/" target="_blank" rel="noreferrer">Facebook</a>
           （貼文支援部分 Markdown 格式）
-        </li>
-        <li>
+        </ListItem>
+        <ListItem>
           <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/about-writing-and-formatting-on-github" target="_blank" rel="noreferrer">Github</a>
           （Readme、PR、Issue 等文件部分支援 Markdown 渲染）
-        </li>
-      </ul>
+        </ListItem>
+      </UnorderedList>
       <p>目前也有許多工具可以協助使用者編寫Markdown，並將MD格式以更易閱讀的HTML格式顯示。比如：</p>
-      <ul>
-        <li>
+      <UnorderedList>
+        <ListItem>
           <a href="https://code.visualstudio.com/" target="_blank" rel="noreferrer">VS Code</a>
           ：跨平台文字編輯器，除了內建Markdown預覽與編寫功能，亦有
           <a href="https://marketplace.visualstudio.com/search?term=markdown&target=VSCode" target="_blank" rel="noreferrer">豐富擴充功能</a>
           可使用。
-        </li>
-        <li>
+        </ListItem>
+        <ListItem>
           <a href="https://typora.io/" target="_blank" rel="noreferrer">Typora</a>
           ：風評極佳的 Markdown 編輯器，主打「所見即所得」。
-        </li>
-        <li>
+        </ListItem>
+        <ListItem>
           <a href="https://hackmd.io/" target="_blank" rel="noreferrer">HackMD.io</a>
           ：Markdown大型多人協作平台，只需要有瀏覽器即可使用，對於不想安裝其餘軟體的使用者來說是個非常棒的選擇。
-        </li>
-      </ul>
+        </ListItem>
+      </UnorderedList>
     </CollapsibleSection>
   );
 }

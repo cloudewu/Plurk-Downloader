@@ -1,7 +1,13 @@
+import logging
+
 from typing import Dict, List
 
 from ..entity import PlurkContent, PlurkResponse, PlurkUser
 from ....infrastructure.coder import b36_encode
+
+
+logger = logging.getLogger('PlurkAPI Mapper')
+
 
 def user_mapper(user: Dict) -> PlurkUser:
     return PlurkUser(
@@ -17,6 +23,7 @@ def content_mapper(plurk_data: Dict) -> PlurkContent:
 
     # dict.get() is used to handle optional return fields
     pid = plurk.get('plurk_id')
+    logger.info(f'mapping plurk {pid}')
     return PlurkContent(
         owner=owner,
         id=pid,
@@ -38,6 +45,7 @@ def content_mapper(plurk_data: Dict) -> PlurkContent:
 
 
 def response_list_mapper(plurk_id: str, responses: List[Dict]) -> List[PlurkResponse]:
+    logger.info(f'mapping response list from plurk {plurk_id}')
     friends = responses['friends']
 
     def gen_response(response):
@@ -48,7 +56,19 @@ def response_list_mapper(plurk_id: str, responses: List[Dict]) -> List[PlurkResp
 
 
 def response_mapper(plurk_id: str, poster: Dict, response: Dict) -> PlurkResponse:
+    logger.info(f"mapping the response {response['id']} from plurk {plurk_id}")
     owner = user_mapper(poster)
+    if int(owner.id) == 99999: # anonymous plurker
+        anonymous_id = response.get('handle')
+        logger.info(f'Anonymous plurker detected. Generated id: {anonymous_id}')
+        owner.display_name = anonymous_id or owner.display_name
+        if anonymous_id != 'ಠ_ಠ':
+            owner.nickname = anonymous_id or owner.nickname
+        """
+        Note that: both display name and nickname falls back to original one if handle is not found.
+        Also, the plurker themselves is always shown as ಠ_ಠ (@anonymous),
+        whereaw other plurkers are shown as handler (@handler).
+        """
 
     # dict.get() is used to handle optional return fields
     return PlurkResponse(

@@ -1,3 +1,4 @@
+import ExtLink from './ExtLink';
 import VDivider from './widgets/VDivider';
 
 type Props = {
@@ -13,7 +14,7 @@ function Footer({ className }: Props) {
       <p>
         Plurk Downloader, 2020 - 2022
         <VDivider className="ml-1 text-black/25 not-italic" />
-        <a className="px-1 underline hover:no-underline" href="https://github.com/cloudewu/Plurk-Downloader">GitHub</a>
+        <ExtLink href="https://github.com/cloudewu/Plurk-Downloader" title="Plurk Downloader | GitHub">GitHub</ExtLink>
       </p>
     </div>
   );

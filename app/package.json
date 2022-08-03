@@ -11,6 +11,9 @@
     "lint:staged": "lint-staged"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.2",
+    "@fortawesome/free-solid-svg-icons": "^6.1.2",
+    "@fortawesome/react-fontawesome": "latest",
     "js-file-download": "^0.4.12",
     "next": "^12.2.3",
     "react": "^18.2.0",

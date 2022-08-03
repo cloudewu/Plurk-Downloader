@@ -4,7 +4,7 @@ import CollapsibleContent from './CollapsibleContent';
 import CollapsibleHeader from './CollapsibleHeader';
 
 interface Props {
-  header: ReactElement;
+  header: ReactElement | string;
   content: ReactElement;
   className?: string;
   defaultCollapse?: boolean;

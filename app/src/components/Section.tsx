@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 interface Props {
-  header: ReactElement;
+  header: ReactElement | string;
   content: ReactElement;
   className?: string;
 }

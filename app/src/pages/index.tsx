@@ -26,7 +26,7 @@ function SectionWelcome() {
   return (
     <Section
       className="my-12"
-      header={<>噗文轉存器</>}
+      header="噗文轉存器"
       content={(
         <>
           <p>是否經常在河道上、或者話題排行上看見經典的討論噗？</p>
@@ -126,7 +126,7 @@ function SectionIntro() {
   return (
     <CollapsibleSection
       className="mt-6"
-      header={<h1>這是什麼？</h1>}
+      header="這是什麼？"
       content={(
         <>
           <p>
@@ -152,7 +152,7 @@ function SectionFeature() {
   return (
     <CollapsibleSection
       className="mt-4"
-      header={<h1>功能介紹</h1>}
+      header="功能介紹"
       content={(
         <>
           <p>
@@ -173,11 +173,11 @@ function SectionFAQ() {
   return (
     <CollapsibleSection
       className="mt-4"
-      header={<h1>常見問題</h1>}
+      header="常見問題"
       content={(
         <>
           <SubSection
-            header={<>圖片跟表符會被保存下來嗎？</>}
+            header="圖片跟表符會被保存下來嗎？"
             content={(
               <>
                 <p>
@@ -194,7 +194,7 @@ function SectionFAQ() {
             )}
           />
           <SubSection
-            header={<>為什麼我點擊送出後顯示錯誤？</>}
+            header="為什麼我點擊送出後顯示錯誤？"
             content={(
               <>
                 <p>
@@ -206,7 +206,7 @@ function SectionFAQ() {
             )}
           />
           <SubSection
-            header={<>我送出後顯示成功，但什麼都沒出現。</>}
+            header="我送出後顯示成功，但什麼都沒出現。"
             content={(
               <p>
                 轉存結果預設會以新分頁開啟，若未出現可能是瀏覽器攔截了彈出視窗，
@@ -215,7 +215,7 @@ function SectionFAQ() {
             )}
           />
           <SubSection
-            header={<>我遇到了未知的問題，我懷疑你們網站有Bug。</>}
+            header="我遇到了未知的問題，我懷疑你們網站有Bug。"
             content={(
               <>
                 <p className="text-black/25 text-xs line-through">

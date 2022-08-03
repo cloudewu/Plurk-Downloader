@@ -20,7 +20,7 @@ function MarkdownBrief() {
   return (
     <Section
       className="my-12"
-      header={<>什麼是 Markdown？</>}
+      header="什麼是 Markdown？"
       content={(
         <>
           <p>
@@ -38,7 +38,7 @@ function EasyReadWrite() {
   return (
     <CollapsibleSection
       className="my-6"
-      header={<>什麼叫易讀易寫？</>}
+      header="什麼叫易讀易寫？"
       content={(
         <>
           <p>
@@ -119,7 +119,7 @@ function CommonMD() {
 
   return (
     <CollapsibleSection
-      header={<>常見 Markdown 格式</>}
+      header="常見 Markdown 格式"
       content={(
         <table>
           <tbody>
@@ -155,7 +155,7 @@ function DemoSection() {
   return (
     <CollapsibleSection
       className="my-6"
-      header={<>Markdown 範例</>}
+      header="Markdown 範例"
       content={(
         <div className="flex">
           <div className="flex-auto mx-2 border border-red-500 h-64" />

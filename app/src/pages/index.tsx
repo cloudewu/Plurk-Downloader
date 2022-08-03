@@ -4,6 +4,7 @@ import fileDownload from 'js-file-download';
 import Card from '../components/Card';
 import CollapsibleSection from '../components/CollapsibleSection';
 import DownloadButton from '../components/widgets/DownloadButton';
+import ExtLink from '../components/ExtLink';
 import Layout from '../components/Layout';
 import Section from '../components/Section';
 import SubSection from '../components/SubSection';
@@ -42,9 +43,9 @@ function SectionMDTips() {
       <span className="inline-block w-2">·</span>
       <p className="inline-block py-0">
         文字格式支援 Markdown 語法，歡迎使用
-        <a className="underline hover:no-underline mx-1" href="https://hackmd.io/recent/" target="_blank" rel="noreferrer">
+        <ExtLink href="https://hackmd.io/recent/" title="HackMD">
           HackMD
-        </a>
+        </ExtLink>
         等工具增進閱讀體驗！
       </p>
     </div>

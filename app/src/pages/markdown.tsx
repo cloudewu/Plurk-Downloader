@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { ReactElement } from 'react';
 
 import CollapsibleSection from '../components/CollapsibleSection';
+import ExtLink from '../components/ExtLink';
 import Layout from '../components/Layout';
 import { UnorderedList, ListItem } from '../components/List';
 import Section from '../components/Section';
@@ -24,7 +25,9 @@ function MarkdownBrief() {
       header="什麼是 Markdown？"
     >
       <p>
-        <a href="https://markdown.tw/" target="_blank" rel="noreferrer">Markdown</a>
+        <ExtLink href="https://markdown.tw/" title="Markdown 語法說明">
+          Markdown
+        </ExtLink>
         （縮寫為 MD）是一種輕量化的標記語言。
       </p>
       <p>它的目的是使得純文字的檔案也能夠「易讀易寫」，並且可以輕易地轉換成一般HTML（網頁）格式來進行閱讀。</p>
@@ -49,32 +52,42 @@ function EasyReadWrite() {
       <p>也因為Markdown的易讀性，目前越來越多編輯平台都有支援類Markdown的編寫格式（有些僅部分支援），比如：</p>
       <UnorderedList>
         <ListItem>
-          <a href="https://plurk.com/" target="_blank" rel="noreferrer">噗浪 Plurk</a>
-          （類 MD 語法）
+          <ExtLink href="https://plurk.com/">噗浪 Plurk</ExtLink>
+          ：類 MD 語法
         </ListItem>
         <ListItem>
-          <a href="https://facebook.com/" target="_blank" rel="noreferrer">Facebook</a>
-          （貼文支援部分 Markdown 格式）
+          <ExtLink href="https://facebook.com/">Facebook</ExtLink>
+          ：貼文支援部分 Markdown 格式
         </ListItem>
         <ListItem>
-          <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/about-writing-and-formatting-on-github" target="_blank" rel="noreferrer">Github</a>
-          （Readme、PR、Issue 等文件部分支援 Markdown 渲染）
+          <ExtLink
+            href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/about-writing-and-formatting-on-github"
+            title="About writing and formatting on GitHub"
+          >
+            Github
+          </ExtLink>
+          ：Readme、PR、Issue 等文件部分支援 Markdown 渲染
         </ListItem>
       </UnorderedList>
       <p>目前也有許多工具可以協助使用者編寫Markdown，並將MD格式以更易閱讀的HTML格式顯示。比如：</p>
       <UnorderedList>
         <ListItem>
-          <a href="https://code.visualstudio.com/" target="_blank" rel="noreferrer">VS Code</a>
+          <ExtLink href="https://code.visualstudio.com/">Visual Studio Code</ExtLink>
           ：跨平台文字編輯器，除了內建Markdown預覽與編寫功能，亦有
-          <a href="https://marketplace.visualstudio.com/search?term=markdown&target=VSCode" target="_blank" rel="noreferrer">豐富擴充功能</a>
+          <ExtLink
+            href="https://marketplace.visualstudio.com/search?term=markdown&target=VSCode"
+            title="Visual Studio | Marketplace"
+          >
+            豐富擴充功能
+          </ExtLink>
           可使用。
         </ListItem>
         <ListItem>
-          <a href="https://typora.io/" target="_blank" rel="noreferrer">Typora</a>
+          <ExtLink href="https://typora.io/">Typora</ExtLink>
           ：風評極佳的 Markdown 編輯器，主打「所見即所得」。
         </ListItem>
         <ListItem>
-          <a href="https://hackmd.io/" target="_blank" rel="noreferrer">HackMD.io</a>
+          <ExtLink href="https://hackmd.io/">HackMD.io</ExtLink>
           ：Markdown大型多人協作平台，只需要有瀏覽器即可使用，對於不想安裝其餘軟體的使用者來說是個非常棒的選擇。
         </ListItem>
       </UnorderedList>

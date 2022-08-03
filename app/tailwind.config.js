@@ -6,6 +6,13 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        rxs: '0.75em',
+        rsm: '0.875em',
+        rbase: '1em',
+        rlg: '1.125em',
+        rxl: '1.25em',
+      },
       colors: {
         primary: '#FF574D', // official Plurk color
       },

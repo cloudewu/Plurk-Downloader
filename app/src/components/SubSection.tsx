@@ -1,21 +1,20 @@
-import { ReactElement } from 'react';
+import { PropsWithChildren, ReactElement } from 'react';
 
-interface Props {
+interface Props extends PropsWithChildren {
   header: ReactElement | string;
-  content: ReactElement;
   className?: string;
 }
 
 function SubSection(props: Props) {
-  const { header, content, className } = props;
+  const { header, children, className } = props;
 
   return (
     <div className={className}>
       <h3 className="mt-3 mb-2 text-md text-primary font-bold">
         { header }
       </h3>
-      <div className="">
-        { content }
+      <div>
+        { children }
       </div>
     </div>
   );

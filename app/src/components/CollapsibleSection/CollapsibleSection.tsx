@@ -1,18 +1,22 @@
-import { ReactElement, useCallback, useState } from 'react';
+import {
+  PropsWithChildren,
+  ReactElement,
+  useCallback,
+  useState,
+} from 'react';
 
 import CollapsibleContent from './CollapsibleContent';
 import CollapsibleHeader from './CollapsibleHeader';
 
-interface Props {
+interface Props extends PropsWithChildren {
   header: ReactElement | string;
-  content: ReactElement;
   className?: string;
   defaultCollapse?: boolean;
 }
 
 function CollapsibleSection(props: Props) {
   const {
-    header, content, className, defaultCollapse,
+    header, children, className, defaultCollapse,
   } = props;
   const [collapsed, setCollapsed] = useState(defaultCollapse);
 
@@ -26,7 +30,7 @@ function CollapsibleSection(props: Props) {
         { header }
       </CollapsibleHeader>
       <CollapsibleContent collapsed={collapsed}>
-        { content }
+        { children }
       </CollapsibleContent>
     </div>
   );

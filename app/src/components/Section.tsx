@@ -1,13 +1,12 @@
-import { ReactElement } from 'react';
+import { PropsWithChildren, ReactElement } from 'react';
 
-interface Props {
+interface Props extends PropsWithChildren {
   header: ReactElement | string;
-  content: ReactElement;
   className?: string;
 }
 
 function Section(props: Props) {
-  const { header, content, className } = props;
+  const { header, children, className } = props;
 
   return (
     <div className={className}>
@@ -15,7 +14,7 @@ function Section(props: Props) {
         { header }
       </h3>
       <div className="px-1">
-        { content }
+        { children }
       </div>
     </div>
   );

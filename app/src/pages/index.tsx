@@ -3,11 +3,11 @@ import fileDownload from 'js-file-download';
 
 import Card from '../components/Card';
 import CollapsibleSection from '../components/CollapsibleSection';
-import DownloadButton from '../components/widgets/DownloadButton';
 import ExtLink from '../components/ExtLink';
 import Layout from '../components/Layout';
 import Section from '../components/Section';
 import SubSection from '../components/SubSection';
+import { DownloadButton, LoadingIcon } from '../components/widgets';
 
 import { MDInfo, callAPI } from '../utils/api';
 
@@ -100,24 +100,28 @@ function SubmitForm() {
             onChange={(e) => setInputPlurkInfo(e.target.value)}
           />
           <button
-            className={'flex-initial px-2 border border-primary rounded-r-full '
+            className={'flex-initial w-12 px-2 border border-primary rounded-r-full '
                        + 'bg-primary text-sm text-white'}
+            disabled={status === 'pending'}
             type="submit"
           >
-            送出
+            { status === 'pending' ? <LoadingIcon className="text-white" /> : '送出' }
           </button>
         </div>
       </form>
-      {
-        /* eslint-disable no-nested-ternary */
-        // TODO: refactor
-        status === 'pending' ? <p>Requesting...</p>
-          : status === 'success' ? <DownloadButton filename={`${result.title}.md`} content={result.content} />
-            : status === 'error' ? <p>Request failed</p>
-              : null
-      }
+      <ResultPanel status={status} result={result} />
     </Card>
   );
+}
+
+function ResultPanel({ status, result }) {
+  if (status === 'success') {
+    return <DownloadButton filename={`${result.title}.md`} content={result.content} />;
+  }
+  if (status === 'error') {
+    return <p>Request failed!</p>;
+  }
+  return null;
 }
 
 function SectionIntro() {

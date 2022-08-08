@@ -15,7 +15,7 @@ function CollapsibleHeader(props : Props) {
 
   return (
     <button
-      className={`sticky top-8 bg-white my-2 py-1 w-full border-b border-primary font-bold text-primary text-left ${className}`}
+      className={`sticky top-8 z-10 bg-white my-2 py-1 w-full border-b border-primary font-bold text-primary text-left ${className}`}
       type="button"
       onClick={onClick}
     >

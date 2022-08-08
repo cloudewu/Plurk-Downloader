@@ -1,18 +1,11 @@
 import VDivider from '../widgets/VDivider';
 import NavIcon from './NavIcon';
-import NavItem from './NavItem';
-
-type NavLinkType = {
-  text: string;
-  href: string;
-}
-
-type NavItemType = NavLinkType;
+import NavItem, { type Props as NavItemProps } from './NavItem';
 
 function Navbar() {
-  const navItems: NavItemType[] = [
+  const navItems: NavItemProps[] = [
     { text: '首頁', href: '/' },
-    { text: 'Markdown', href: '/markdown' },
+    { text: '什麼是 Markdown', href: '/markdown' },
   ];
 
   return (

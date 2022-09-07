@@ -15,7 +15,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.2",
     "@fortawesome/react-fontawesome": "latest",
     "js-file-download": "^0.4.12",
-    "next": "^12.2.3",
+    "next": "12.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sharp": "^0.30.7"

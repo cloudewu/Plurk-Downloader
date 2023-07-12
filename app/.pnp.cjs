@@ -1859,7 +1859,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-import", "virtual:42f59124ac5044f7c6ee56e6f788ec18030eca98e04752dde8b55b237f9e09768a9e1b6d9a6c3dfaf8b8293f911b7f75c3b3efff85f1ef6e43e05ec5443c9d6e#npm:2.26.0"],\
             ["object.assign", "npm:4.1.2"],\
             ["object.entries", "npm:1.1.5"],\
-            ["semver", "npm:6.3.0"]\
+            ["semver", "npm:6.3.1"]\
           ],\
           "packagePeers": [\
             "@types/eslint-plugin-import",\
@@ -2048,7 +2048,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jsx-ast-utils", "npm:3.3.2"],\
             ["language-tags", "npm:1.0.5"],\
             ["minimatch", "npm:3.1.2"],\
-            ["semver", "npm:6.3.0"]\
+            ["semver", "npm:6.3.1"]\
           ],\
           "packagePeers": [\
             "@types/eslint",\
@@ -2083,7 +2083,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["object.values", "npm:1.1.5"],\
             ["prop-types", "npm:15.8.1"],\
             ["resolve", "patch:resolve@npm%3A2.0.0-next.4#~builtin<compat/resolve>::version=2.0.0-next.4&hash=07638b"],\
-            ["semver", "npm:6.3.0"],\
+            ["semver", "npm:6.3.1"],\
             ["string.prototype.matchall", "npm:4.0.7"]\
           ],\
           "packagePeers": [\
@@ -4467,10 +4467,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["semver", [\
-        ["npm:6.3.0", {\
-          "packageLocation": "./.yarn/cache/semver-npm-6.3.0-b3eace8bfd-1b26ecf6db.zip/node_modules/semver/",\
+        ["npm:6.3.1", {\
+          "packageLocation": "./.yarn/cache/semver-npm-6.3.1-bcba31fdbe-ae47d06de2.zip/node_modules/semver/",\
           "packageDependencies": [\
-            ["semver", "npm:6.3.0"]\
+            ["semver", "npm:6.3.1"]\
           ],\
           "linkType": "HARD"\
         }],\
